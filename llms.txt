@@ -1,0 +1,61 @@
+# Pure Labs Pay
+
+> Payment processing for nutra, peptide and kratom brands that want to stay processing.
+
+Pure Labs Pay provides merchant accounts and card processing for lab and wellness commerce.
+Processing is delivered through partner acquiring banks. Pure Labs Pay is not a bank and not an
+acquirer.
+
+## Categories and status
+
+- Nutra and supplements: live. Established supplement, vitamin, sports nutrition, herbal,
+  functional food and beauty supplement brands can apply today.
+- Peptides: opening soon. A priority list is open. Research use and licensed telehealth or
+  compounding models.
+- Kratom: opening soon, United States only, in supported states. A priority list is open. Leaf,
+  powder and capsule products.
+
+## Markets
+
+- United States and Canada first.
+- Other countries possible on review.
+- Kratom is United States only, and not available in every state. The current list of states we
+  do not support is published at /legal/restricted-regions.html.
+- Kratom is not available for merchants based in or selling to Canada.
+
+## What we do not process
+
+- Products with disease or drug claims
+- Prescription-only ingredients
+- Ingredients banned by the FDA or Health Canada
+- Concentrated or synthetic 7-OH products
+- Human-use claims on research peptides
+
+The full list is published at /legal/acceptable-use.html.
+
+## How to apply
+
+1. Share your recent processing statements along with your business details at /apply.html.
+2. Underwriting reviews your history and comes back with a custom rate.
+3. You see every term before you sign, and we help you plan the move from your current processor.
+
+Pricing is built around each merchant's own processing history, so no rates, fees, reserves or
+contract terms are published on this site or in this file. Every term is shown in writing before
+signing.
+
+## Contact
+
+- Underwriting: underwriting@[PLACEHOLDER: domain]
+- Support: support@[PLACEHOLDER: domain]
+- Questions before applying: /contact.html
+
+## Key pages
+
+- /: overview and how it works
+- /nutra.html: nutra and supplement processing, live
+- /peptides.html: peptide processing, priority list
+- /kratom.html: kratom processing, priority list, United States only
+- /apply.html: application
+- /contact.html: talk to underwriting
+- /legal/acceptable-use.html: accepted categories and restricted products
+- /legal/restricted-regions.html: markets and restricted states

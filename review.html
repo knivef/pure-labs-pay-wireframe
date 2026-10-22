@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review index | Pure Labs Pay wireframe</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Review index for the Pure Labs Pay wireframe. Not part of the production site.">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* review tooling, not part of the site, so its few rules live here rather
+       than in the stylesheet the team will inherit */
+    .review-table { width: 100%; border-collapse: collapse; font-size: var(--text-control-label); }
+    .review-table th, .review-table td { text-align: left; padding: var(--spacing-12) var(--spacing-8); border-bottom: 1px solid var(--border); vertical-align: top; }
+    .review-table thead th { font-family: var(--font-mono); font-weight: 500; color: var(--ink-faint); border-bottom-color: var(--ink); }
+    .review-table th[scope="row"] { font-weight: 600; width: 16rem; }
+    .review-note { display: block; font-weight: 400; color: var(--ink-faint); }
+    .review-grid { display: grid; gap: var(--spacing-24); grid-template-columns: 1fr; }
+    @media (min-width: 48rem) { .review-grid { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body data-mode="mockup">
+  <main id="main" class="main">
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow">Review index</p>
+        <h1>Pure Labs Pay wireframe</h1>
+        <p class="lead">Every page in both display modes, with the annotation layer on or off. This
+        page is review tooling: it carries noindex, it is not in the sitemap, and it does not ship.</p>
+
+        <div class="callout callout--quiet mt-5">
+          <p class="callout__title">How to read it</p>
+          <p><strong>Mockup</strong> is the brand design. <strong>Wireframe</strong> is the same
+          structure in greyscale with a system font, for talking about layout without talking about
+          colour. <strong>Notes</strong> adds a numbered yellow tag to every section: click a tag to
+          read the intent, the SEO target and the dev notes. The floating bar in the bottom right
+          switches modes anywhere on the site, and collapses if it gets in the way.</p>
+        </div>
+
+        <div class="mt-6">
+          <table class="review-table">
+            <caption class="visually-hidden">Every page in every display mode</caption>
+            <thead>
+              <tr><th scope="col">Page</th><th scope="col">Mockup</th><th scope="col">With notes</th><th scope="col">Wireframe</th><th scope="col">With notes</th></tr>
+            </thead>
+            <tbody>
+        <tr>
+          <th scope="row"><a href="index.html">Home</a><span class="review-note">Leads with nutra, the live category</span></th>
+          <td><a href="index.html?mode=mockup&amp;notes=0">Mockup</a></td>
+          <td><a href="index.html?mode=mockup&amp;notes=1">Mockup, notes</a></td>
+          <td><a href="index.html?mode=wireframe&amp;notes=0">Wireframe</a></td>
+          <td><a href="index.html?mode=wireframe&amp;notes=1">Wireframe, notes</a></td>
+        </tr>
+        <tr>
+          <th scope="row"><a href="nutra.html">Nutra</a><span class="review-note">Live category, the deepest page</span></th>
+          <td><a href="nutra.html?mode=mockup&amp;notes=0">Mockup</a></td>
+          <td><a href="nutra.html?mode=mockup&amp;notes=1">Mockup, notes</a></td>
+          <td><a href="nutra.html?mode=wireframe&amp;notes=0">Wireframe</a></td>
+          <td><a href="nutra.html?mode=wireframe&amp;notes=1">Wireframe, notes</a></td>
+        </tr>
+        <tr>
+          <th scope="row"><a href="peptides.html">Peptides</a><span class="review-note">Coming soon, priority list form</span></th>
+          <td><a href="peptides.html?mode=mockup&amp;notes=0">Mockup</a></td>
+          <td><a href="peptides.html?mode=mockup&amp;notes=1">Mockup, notes</a></td>
+          <td><a href="peptides.html?mode=wireframe&amp;notes=0">Wireframe</a></td>
+          <td><a href="peptides.html?mode=wireframe&amp;notes=1">Wireframe, notes</a></td>
+        </tr>
+        <tr>
+          <th scope="row"><a href="kratom.html">Kratom</a><span class="review-note">Coming soon, US only, state gated form</span></th>
+          <td><a href="kratom.html?mode=mockup&amp;notes=0">Mockup</a></td>
+          <td><a href="kratom.html?mode=mockup&amp;notes=1">Mockup, notes</a></td>
+          <td><a href="kratom.html?mode=wireframe&amp;notes=0">Wireframe</a></td>
+          <td><a href="kratom.html?mode=wireframe&amp;notes=1">Wireframe, notes</a></td>
+        </tr>
+        <tr>
+          <th scope="row"><a href="apply.html">Apply</a><span class="review-note">Three step application, sticky side panel</span></th>
+          <td><a href="apply.html?mode=mockup&amp;notes=0">Mockup</a></td>
+          <td><a href="apply.html?mode=mockup&amp;notes=1">Mockup, notes</a></td>
+          <td><a href="apply.html?mode=wireframe&amp;notes=0">Wireframe</a></td>
+          <td><a href="apply.html?mode=wireframe&amp;notes=1">Wireframe, notes</a></td>
+        </tr>
+        <tr>
+          <th scope="row"><a href="contact.html">Contact</a><span class="review-note">Talk to underwriting</span></th>
+          <td><a href="contact.html?mode=mockup&amp;notes=0">Mockup</a></td>
+          <td><a href="contact.html?mode=mockup&amp;notes=1">Mockup, notes</a></td>
+          <td><a href="contact.html?mode=wireframe&amp;notes=0">Wireframe</a></td>
+          <td><a href="contact.html?mode=wireframe&amp;notes=1">Wireframe, notes</a></td>
+        </tr>
+        <tr>
+          <th scope="row"><a href="legal/terms.html">Terms</a><span class="review-note">Awaiting copy from counsel</span></th>
+          <td><a href="legal/terms.html?mode=mockup&amp;notes=0">Mockup</a></td>
+          <td><a href="legal/terms.html?mode=mockup&amp;notes=1">Mockup, notes</a></td>
+          <td><a href="legal/terms.html?mode=wireframe&amp;notes=0">Wireframe</a></td>
+          <td><a href="legal/terms.html?mode=wireframe&amp;notes=1">Wireframe, notes</a></td>
+        </tr>
+        <tr>
+          <th scope="row"><a href="legal/privacy.html">Privacy</a><span class="review-note">Awaiting copy from counsel</span></th>
+          <td><a href="legal/privacy.html?mode=mockup&amp;notes=0">Mockup</a></td>
+          <td><a href="legal/privacy.html?mode=mockup&amp;notes=1">Mockup, notes</a></td>
+          <td><a href="legal/privacy.html?mode=wireframe&amp;notes=0">Wireframe</a></td>
+          <td><a href="legal/privacy.html?mode=wireframe&amp;notes=1">Wireframe, notes</a></td>
+        </tr>
+        <tr>
+          <th scope="row"><a href="legal/acceptable-use.html">Acceptable use</a><span class="review-note">Visible outline, awaiting copy</span></th>
+          <td><a href="legal/acceptable-use.html?mode=mockup&amp;notes=0">Mockup</a></td>
+          <td><a href="legal/acceptable-use.html?mode=mockup&amp;notes=1">Mockup, notes</a></td>
+          <td><a href="legal/acceptable-use.html?mode=wireframe&amp;notes=0">Wireframe</a></td>
+          <td><a href="legal/acceptable-use.html?mode=wireframe&amp;notes=1">Wireframe, notes</a></td>
+        </tr>
+        <tr>
+          <th scope="row"><a href="legal/restricted-regions.html">Restricted regions</a><span class="review-note">Kratom state list rendered from config</span></th>
+          <td><a href="legal/restricted-regions.html?mode=mockup&amp;notes=0">Mockup</a></td>
+          <td><a href="legal/restricted-regions.html?mode=mockup&amp;notes=1">Mockup, notes</a></td>
+          <td><a href="legal/restricted-regions.html?mode=wireframe&amp;notes=0">Wireframe</a></td>
+          <td><a href="legal/restricted-regions.html?mode=wireframe&amp;notes=1">Wireframe, notes</a></td>
+        </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt section--bordered">
+      <div class="container">
+        <h2>Worth clicking</h2>
+        <div class="review-grid">
+          <div class="card">
+            <h3 class="card__title">The forms</h3>
+            <ul>
+              <li><a href="apply.html?vertical=nutra">Apply, preselected for nutra</a></li>
+              <li><a href="apply.html?vertical=kratom&amp;utm_source=review">Apply as kratom with a UTM, which becomes a waitlist lead</a></li>
+              <li><a href="peptides.html#priority-list">Peptide priority list</a></li>
+              <li><a href="kratom.html#priority-list">Kratom priority list, try Alabama for the state hold</a></li>
+            </ul>
+            <p class="meta-line">Open the console: every submit logs its payload. Nothing is sent anywhere.</p>
+          </div>
+          <div class="card">
+            <h3 class="card__title">The files</h3>
+            <ul>
+              <li><a href="sitemap.xml">sitemap.xml</a></li>
+              <li><a href="robots.txt">robots.txt</a></li>
+              <li><a href="llms.txt">llms.txt</a></li>
+            </ul>
+            <p class="meta-line">CLAUDE.md holds the rules, HANDOFF.md the specs, PLACEHOLDERS.md what is still open.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

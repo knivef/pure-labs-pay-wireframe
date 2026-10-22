@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peptide Merchant Account and Payment Processing | Pure Labs Pay</title>
+  <meta name="description" content="Card processing for peptide sellers is opening soon. Join the priority list for a peptide merchant account built for compliant brands.">
+  <!-- The design system's faces are mt-neue-display, mt-neue-text, mt-sans and
+       mt-mono, which are licensed and not ours. The stacks in css/styles.css
+       name each face first, then the substitutes the reference gives: Manrope
+       for the two neue cuts, Inter for the sans, IBM Plex Mono for the mono.
+       This link stays commented out so the build opens straight from the
+       filesystem with no external request. Enable it, or self host, or drop in
+       the licensed faces, for production. -->
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- SEO -->
+  <!-- Replace the [PLACEHOLDER: domain] base in these four places, in
+       sitemap.xml, robots.txt, llms.txt and in SITE_BASE in js/main.js. -->
+  <link rel="canonical" href="https://[PLACEHOLDER: domain]/peptides.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Pure Labs Pay">
+  <meta property="og:title" content="Peptide Merchant Account and Payment Processing | Pure Labs Pay">
+  <meta property="og:description" content="Card processing for peptide sellers is opening soon. Join the priority list for a peptide merchant account built for compliant brands.">
+  <meta property="og:url" content="https://[PLACEHOLDER: domain]/peptides.html">
+  <meta property="og:image" content="https://[PLACEHOLDER: domain]/assets/og-peptides.png">
+  <meta property="og:image:alt" content="Pure Labs Pay, payment processing for nutra, peptide and kratom brands">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Peptide Merchant Account and Payment Processing | Pure Labs Pay">
+  <meta name="twitter:description" content="Card processing for peptide sellers is opening soon. Join the priority list for a peptide merchant account built for compliant brands.">
+  <meta name="twitter:image" content="https://[PLACEHOLDER: domain]/assets/og-peptides.png">
+  <!-- [PLACEHOLDER: Open Graph image, 1200 by 630, per assets/README.md] -->
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"> -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<!-- data-mode is set here so the page is styled before main.js runs, then
+     main.js applies ?mode= or the stored choice. Default is mockup. -->
+<body data-mode="mockup">
+  <!-- Shared chrome is rendered by js/main.js into these mounts, because the
+       build has no build step. The noscript list keeps the site navigable
+       with scripting off. -->
+  <div id="site-header">
+    <noscript>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="nutra.html">Nutra</a></li>
+          <li><a href="peptides.html">Peptides</a></li>
+          <li><a href="kratom.html">Kratom</a></li>
+          <li><a href="apply.html">Get my custom rate</a></li>
+          <li><a href="contact.html">Talk to underwriting</a></li>
+        </ul>
+      </nav>
+    </noscript>
+  </div>
+
+  <main id="main" class="main">
+
+    <!-- 1. Hero -->
+    <section class="section hero graph-field" data-note="Intent: say plainly that this is not open yet, and give the one action that is available, the priority list. Nobody should leave thinking they can apply today. | SEO: primary keyword peptide merchant account in the H1 and the meta title, secondary peptide payment processing in the eyebrow and the FAQ H2. Page stays indexable, no noindex. | Dev: the only hero action is the waitlist anchor. Get my custom rate stays in the header and the footer, per the rollout priority in CLAUDE.md. Research use framing throughout, no claims about people, no quantities, no outcomes.">
+      <div class="container">
+        <div class="split">
+          <div class="hero__copy">
+            <p class="chip-row mb-2"><span class="pill pill--soon">Coming soon</span></p>
+            <p class="eyebrow">Peptide payment processing</p>
+            <h1>Peptide merchant accounts, opening soon</h1>
+            <p class="lead">Card processing for compliant peptide sellers in the US and Canada. Join the priority list and we'll reach out as onboarding opens.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary" href="#priority-list">Join the priority list</a>
+            </div>
+            <span class="trust-line">No commitment. Your details go only to our underwriting team.</span>
+            <p class="meta-line hero__meta">Onboarding opens <span class="ph-text">[PLACEHOLDER: target month or "soon"]</span>.</p>
+          </div>
+
+          <figure class="dash-card" data-note="Intent: show the state of the category at a glance, open versus opening, without implying anything about the products themselves. | Dev: sample states only, labelled Example, built in markup. No product imagery on this page at all, and nothing that could read as a product for people.">
+            <figcaption class="mock-caption">
+              <span class="checkout-card__tag">Example</span>
+              <span class="mock-caption__text">A category status panel: nutra live, peptides onboarding soon, kratom coming soon, with the priority list open for the United States and Canada.</span>
+            </figcaption>
+            <div class="dash-card__panel">
+              <p class="dash-card__label">Category status</p>
+              <ul class="chip-row">
+                <li class="chip chip--live">Nutra: Live</li>
+                <li class="chip">Peptides: Onboarding soon</li>
+                <li class="chip chip--muted">Kratom: Coming soon</li>
+              </ul>
+            </div>
+            <div class="dash-card__grid">
+              <div>
+                <p class="dash-card__label">Priority list</p>
+                <p class="dash-card__value">Open</p>
+              </div>
+              <div>
+                <p class="dash-card__label">Markets</p>
+                <p class="dash-card__value">US and CA</p>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Problem -->
+    <section class="section" id="problem" data-note="Intent: name the pattern this seller has already lived through, so the waitlist reads as a fix rather than a delay. | SEO: no keyword target. | Dev: three ice cards. The named processors are a factual claim about published terms, logged as a CONFIRM for counsel. No statistics anywhere.">
+      <div class="container">
+        <h2>Why peptide sellers keep losing their processor</h2>
+        <div class="feature-grid feature-grid--3">
+          <div class="card card--ice">
+            <h3 class="card__title">Banned by the big names</h3>
+            <p>Stripe, PayPal, Shopify Payments and Adyen restrict research chemicals and peptides.</p>
+          </div>
+          <div class="card card--ice">
+            <h3 class="card__title">Labels aren't enough</h3>
+            <p>A research-use-only label alone doesn't satisfy underwriters. They review how products are presented and sold.</p>
+          </div>
+          <div class="card card--ice">
+            <h3 class="card__title">Reviews after approval</h3>
+            <p>Product pages get checked again after you go live. One flag can end an account.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. What we are building -->
+    <section class="section section--bordered" id="building" data-note="Intent: describe the product that is coming, in capability terms only, so expectations are set before onboarding opens. | SEO: carries the secondary keyword peptide payment processing in the H2. | Dev: five tiles, two of them holding CONFIRM markers until the partner confirms the telehealth model and the settlement currencies. Nothing here promises a date.">
+      <div class="container">
+        <h2>Peptide payment processing built for how you sell</h2>
+        <div class="feature-grid feature-grid--3">
+          <div class="card">
+            <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+            <h3 class="card__title">Card processing for peptide catalogues</h3>
+          </div>
+          <div class="card">
+            <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h14v16H5z"/><path d="M9 9h6"/><path d="M9 13h6"/><path d="M9 17h3"/></svg>
+            <h3 class="card__title">Underwriting for research-use and licensed telehealth models</h3>
+            <p><span class="ph-text">[CONFIRM: telehealth and compounding model accepted by partner]</span></p>
+          </div>
+          <div class="card">
+            <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 3h10l4 4v14H4z"/><path d="M14 3v4h4"/><path d="M8 13l2.5 2.5L15 11"/></svg>
+            <h3 class="card__title">A catalogue and site review before you apply</h3>
+          </div>
+          <div class="card">
+            <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M12 9v4"/><path d="M12 16h.01"/></svg>
+            <h3 class="card__title">Dispute alerts and fraud screening</h3>
+          </div>
+          <div class="card">
+            <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9h13l-3-3"/><path d="M20 15H7l3 3"/></svg>
+            <h3 class="card__title">USD and CAD processing</h3>
+            <p><span class="ph-text">[CONFIRM: settlement currencies]</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Who it is for -->
+    <section class="section" id="who-its-for" data-note="Intent: let a seller place themselves in one of three models before they fill in the form, which is also how the sales model question on the form is framed. | SEO: carries research peptides payment processor language. | Dev: the telehealth line holds a CONFIRM. Research supply and licensed prescriber models are described as channels, never with quantities, outcomes or patient facing wording.">
+      <div class="container container--narrow">
+        <h2>Who we'll work with</h2>
+        <ul class="list-plain">
+          <li><span class="list-plain__marker">01</span><span>Research peptide suppliers selling to labs and institutions</span></li>
+          <li><span class="list-plain__marker">02</span><span>Telehealth and compounding programs with licensed prescribers <span class="ph-text">[CONFIRM: telehealth and compounding model accepted by partner]</span></span></li>
+          <li><span class="list-plain__marker">03</span><span>Brands with a certificate of analysis for every product</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. Get ready now -->
+    <section class="section section--bordered" id="get-ready" data-note="Intent: give the seller something useful to do while they wait, and quietly set the underwriting bar before they ever reach a form. | SEO: no keyword target. | Dev: five ticks in the accent green. The second item is the research use rule stated as a requirement of their own site, which is the one place that rule can be named out loud.">
+      <div class="container">
+        <div class="split">
+          <div>
+            <h2>Get ready before onboarding opens</h2>
+            <p>Underwriters check the same handful of things every time.</p>
+            <p class="section-close">These are the ones that hold applications up.</p>
+          </div>
+          <div class="card card--ice">
+            <p class="compare__label">Before you apply</p>
+            <ul class="checklist">
+              <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Certificates of analysis matched to every product on your site</span></li>
+              <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>No human-use, dosing or health claims on research products</span></li>
+              <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Reconstitution supplies not bundled or cross-sold with research products</span></li>
+              <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Clear terms, refund policy and contact details</span></li>
+              <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Your recent processing statements, ready to share</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Priority list form -->
+    <section class="section section--alt" id="priority-list" data-note="Intent: the one action on this page. Short enough to finish, specific enough for underwriting to rank fit. | SEO: no keyword target, this is the conversion. | Dev: the shared form engine in js/main.js. Nothing posts anywhere while CONFIG.FORM_ENDPOINT is empty: it validates, logs the payload and shows the success panel. A Not yet processing answer shows the soft message and tags history none, never a decline. Free mail addresses are accepted and tagged emailType freemail. Payload carries vertical peptides and source waitlist.">
+      <div class="container container--narrow">
+        <h2>Join the peptide priority list</h2>
+        <p class="lead">We'll reach out in order of fit when onboarding opens.</p>
+
+        <form class="form" id="priority-list-form" data-form="waitlist" data-vertical="peptides" novalidate data-note-outside data-note="Dev: field names are the payload keys. Required fields inside a hidden conditional group are skipped by validation and left out of the payload.">
+
+          <div class="field">
+            <label class="field__label" for="pl-name">Full name</label>
+            <input class="input" type="text" id="pl-name" name="fullName" autocomplete="name" required>
+            <p class="field__error">Enter your full name.</p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="pl-email">Work email</label>
+            <input class="input" type="email" id="pl-email" name="workEmail" autocomplete="email" required>
+            <p class="field__hint">A business address helps underwriting place you faster, but any address works.</p>
+            <p class="field__error">Enter an email address we can reply to.</p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="pl-business">Business name</label>
+            <input class="input" type="text" id="pl-business" name="businessName" autocomplete="organization" required>
+            <p class="field__error">Enter your registered or trading name.</p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="pl-website">Website</label>
+            <input class="input" type="text" inputmode="url" id="pl-website" name="website" placeholder="yourstore.com" required>
+            <p class="field__error">Enter the website where you sell.</p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="pl-country">Country</label>
+            <select class="select" id="pl-country" name="country" required>
+              <option value="">Select a country</option>
+              <option value="United States">United States</option>
+              <option value="Canada">Canada</option>
+              <option value="Other">Other</option>
+            </select>
+            <p class="field__error">Select where your business is based.</p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="pl-region">State or province</label>
+            <input class="input" type="text" id="pl-region" name="stateProvince" autocomplete="address-level1">
+            <p class="field__hint">Leave blank if it does not apply.</p>
+          </div>
+
+          <fieldset class="radio-cards">
+            <legend>Sales model</legend>
+            <label class="radio-card">
+              <input type="radio" name="salesModel" value="Research use only" required>
+              <span>
+                <span class="radio-card__title">Research use only</span>
+                <span class="radio-card__hint">Supplied to labs and institutions</span>
+              </span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="salesModel" value="Telehealth or prescription" required>
+              <span>
+                <span class="radio-card__title">Telehealth or prescription</span>
+                <span class="radio-card__hint">Licensed prescribers involved</span>
+              </span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="salesModel" value="Both" required>
+              <span>
+                <span class="radio-card__title">Both</span>
+                <span class="radio-card__hint">Two channels under one business</span>
+              </span>
+            </label>
+            <p class="field__error">Choose the model that fits your business.</p>
+          </fieldset>
+
+          <fieldset class="radio-cards radio-cards--row">
+            <legend>Are you currently processing cards?</legend>
+            <label class="radio-card">
+              <input type="radio" name="currentlyProcessing" value="yes" required>
+              <span><span class="radio-card__title">Yes</span></span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="currentlyProcessing" value="no" required>
+              <span><span class="radio-card__title">Not yet</span></span>
+            </label>
+            <p class="field__error">Let us know whether you are processing today.</p>
+          </fieldset>
+
+          <div class="field-group" data-show-when="currentlyProcessing=yes" hidden>
+            <div class="field">
+              <label class="field__label" for="pl-processor">Current processor</label>
+              <input class="input" type="text" id="pl-processor" name="currentProcessor" required>
+              <p class="field__error">Tell us who processes for you today.</p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="pl-time">Time processing</label>
+              <select class="select" id="pl-time" name="timeProcessing" required>
+                <option value="">Select a range</option>
+                <option value="Under 6 months">Under 6 months</option>
+                <option value="6 to 12 months">6 to 12 months</option>
+                <option value="1 to 2 years">1 to 2 years</option>
+                <option value="Over 2 years">Over 2 years</option>
+              </select>
+              <p class="field__error">Select how long you have been processing.</p>
+            </div>
+          </div>
+
+          <div class="callout callout--quiet" data-soft-message hidden>
+            <p class="callout__title">Leave your details anyway</p>
+            <p>We work best with brands that already have a processing track record. Leave your details and we'll reach out when we have a fit.</p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="pl-volume">Average monthly card volume</label>
+            <select class="select" id="pl-volume" name="monthlyVolume" required>
+              <option value="">Select a range</option>
+              <option value="Under $25k">Under $25k</option>
+              <option value="$25k to $100k">$25k to $100k</option>
+              <option value="$100k to $500k">$100k to $500k</option>
+              <option value="Over $500k">Over $500k</option>
+            </select>
+            <p class="field__error">Select the range that fits your current volume.</p>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" name="consent" value="yes" required>
+              <span>I agree that my details can be used to contact me about processing, as set out in the <a href="legal/privacy.html">privacy notice</a>.</span>
+            </label>
+            <p class="field__error">Please agree before sending your details.</p>
+          </div>
+
+          <div>
+            <button class="btn btn--primary" type="submit">Join the priority list</button>
+            <span class="trust-line">No commitment. Your details go only to our underwriting team.</span>
+          </div>
+        </form>
+
+        <div class="form-success" data-success data-for="priority-list-form" role="status" tabindex="-1" hidden>
+          <h2>You're on the list</h2>
+          <p>We'll email you when peptide onboarding opens. Want to move faster? Have your statements and certificates of analysis ready.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FAQ -->
+    <section class="section" id="faq" data-note="Intent: answer the three questions a waiting seller asks, when, whether a label is enough, and whether their model fits. | SEO: the H2 carries the secondary keyword peptide payment processing, and the questions carry long tail queries. | Dev: native details and summary. The date answer holds a PLACEHOLDER rather than guessing, and no answer states a term, a time or a limit.">
+      <div class="container container--narrow">
+        <h2>Peptide merchant account FAQs</h2>
+        <div class="faq">
+          <details class="faq__item">
+            <summary>When will peptide processing open?</summary>
+            <div class="faq__body"><p>We're finalising onboarding with our processing partners. Priority list members hear first. <span class="ph-text">[PLACEHOLDER: target date]</span></p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Can I join if I'm processing elsewhere today?</summary>
+            <div class="faq__body"><p>Yes. Most brands on the list are processing elsewhere and want a more stable home.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Is a research-use-only label enough?</summary>
+            <div class="faq__body"><p>No. Underwriters look at your whole site, including product descriptions, images and what you sell together. We'll review this with you before you apply.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Do you work with telehealth programs?</summary>
+            <div class="faq__body"><p>We plan to support telehealth and compounding programs with licensed prescribers. <span class="ph-text">[CONFIRM: telehealth and compounding model accepted by partner]</span></p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Which countries will you support?</summary>
+            <div class="faq__body"><p>The United States and Canada first, with other countries on review.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related links, for crawlers and for a reader who is in the wrong category -->
+    <section class="section section--tight section--bordered" data-note="Intent: give a reader in the wrong category a way out, and give crawlers the links between the three categories and the acceptable use page. | SEO: internal linking. The apply link carries ?vertical=peptides, so step one of the application arrives already answered. | Dev: plain list, no cards, so it reads as navigation rather than another pitch.">
+      <div class="container">
+        <h2 class="h-minor">More on processing</h2>
+        <ul class="link-row">
+            <li><a href="apply.html?vertical=peptides">Apply and join the peptide priority list</a></li>
+            <li><a href="nutra.html">Nutra and supplement processing</a></li>
+            <li><a href="kratom.html">Kratom payment processing</a></li>
+            <li><a href="legal/acceptable-use.html">Acceptable use and restricted products</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8. Closing call to action, the reusable block with this page's heading -->
+    <div data-block="final-cta" data-heading="Be first in line for peptide processing" data-primary-label="Join the priority list" data-primary-href="#priority-list"></div>
+
+  </main>
+
+  <div id="site-footer">
+    <noscript>
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="nutra.html">Nutra</a></li>
+          <li><a href="peptides.html">Peptides</a></li>
+          <li><a href="kratom.html">Kratom</a></li>
+          <li><a href="apply.html">Get my custom rate</a></li>
+          <li><a href="contact.html">Talk to underwriting</a></li>
+          <li><a href="legal/terms.html">Terms</a></li>
+          <li><a href="legal/privacy.html">Privacy</a></li>
+          <li><a href="legal/acceptable-use.html">Acceptable use and restricted products</a></li>
+          <li><a href="legal/restricted-regions.html">Restricted regions</a></li>
+        </ul>
+      </nav>
+    </noscript>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

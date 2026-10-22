@@ -1,0 +1,7 @@
+# Pure Labs Pay
+# Replace the [PLACEHOLDER: domain] base before this goes live.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://[PLACEHOLDER: domain]/sitemap.xml

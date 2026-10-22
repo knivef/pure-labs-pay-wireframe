@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get Your Custom Rate | Pure Labs Pay</title>
+  <meta name="description" content="Tell us about your business and your current processing. We'll review your details and come back with a custom rate.">
+  <!-- The design system's faces are mt-neue-display, mt-neue-text, mt-sans and
+       mt-mono, which are licensed and not ours. The stacks in css/styles.css
+       name each face first, then the substitutes the reference gives: Manrope
+       for the two neue cuts, Inter for the sans, IBM Plex Mono for the mono.
+       This link stays commented out so the build opens straight from the
+       filesystem with no external request. Enable it, or self host, or drop in
+       the licensed faces, for production. -->
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- SEO -->
+  <!-- Replace the [PLACEHOLDER: domain] base in these four places, in
+       sitemap.xml, robots.txt, llms.txt and in SITE_BASE in js/main.js. -->
+  <link rel="canonical" href="https://[PLACEHOLDER: domain]/apply.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Pure Labs Pay">
+  <meta property="og:title" content="Get Your Custom Rate | Pure Labs Pay">
+  <meta property="og:description" content="Tell us about your business and your current processing. We'll review your details and come back with a custom rate.">
+  <meta property="og:url" content="https://[PLACEHOLDER: domain]/apply.html">
+  <meta property="og:image" content="https://[PLACEHOLDER: domain]/assets/og-apply.png">
+  <meta property="og:image:alt" content="Pure Labs Pay, payment processing for nutra, peptide and kratom brands">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Get Your Custom Rate | Pure Labs Pay">
+  <meta name="twitter:description" content="Tell us about your business and your current processing. We'll review your details and come back with a custom rate.">
+  <meta name="twitter:image" content="https://[PLACEHOLDER: domain]/assets/og-apply.png">
+  <!-- [PLACEHOLDER: Open Graph image, 1200 by 630, per assets/README.md] -->
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"> -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<!-- data-mode is set here so the page is styled before main.js runs, then
+     main.js applies ?mode= or the stored choice. Default is mockup. -->
+<body data-mode="mockup">
+  <!-- Shared chrome is rendered by js/main.js into these mounts, because the
+       build has no build step. The noscript list keeps the site navigable
+       with scripting off. -->
+  <div id="site-header">
+    <noscript>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="nutra.html">Nutra</a></li>
+          <li><a href="peptides.html">Peptides</a></li>
+          <li><a href="kratom.html">Kratom</a></li>
+          <li><a href="apply.html">Get my custom rate</a></li>
+          <li><a href="contact.html">Talk to underwriting</a></li>
+        </ul>
+      </nav>
+    </noscript>
+  </div>
+
+  <main id="main" class="main">
+
+    <section class="section" data-note="Intent: the one conversion page. Three short steps so the processing questions arrive after the easy ones, with the side panel answering what happens next while the visitor fills it in. | SEO: not a keyword target. Indexable but thin on purpose. | Dev: shared form engine with data-steps. Next validates only the current step, Back keeps every answer because nothing is re-rendered. Nothing posts while CONFIG.FORM_ENDPOINT is empty: it validates, logs the payload and shows the success panel.">
+      <div class="container">
+        <p class="eyebrow">Apply</p>
+        <h1>Get your custom rate</h1>
+        <p class="lead">Tell us about your business and your current processing. Our underwriting team will review it and come back with a rate built around your history.</p>
+
+        <div class="apply-layout mt-6">
+          <div>
+            <form class="form" id="apply-form" data-form="apply" data-steps
+                  data-vertical-from="whatYouSell"
+                  data-waitlist-when="whatYouSell=Peptides|Kratom"
+                  data-preselect-from="vertical:whatYouSell"
+                  novalidate data-note-outside
+                  data-note="Dev: field names are the payload keys. ?vertical=nutra, peptides or kratom preselects step one. UTM parameters on the URL ride along in the payload. Choosing a category that is not open yet switches source to waitlist.">
+
+              <div class="progress" data-progress data-note-outside data-note="Dev: the fill width is set by js from the step count, so the stylesheet needs no class per step.">
+                <p class="progress__label"><span data-progress-step>Step 1 of 3</span><span data-progress-name>Your business</span></p>
+                <div class="progress__track"><span class="progress__fill"></span></div>
+              </div>
+
+              <!-- Step 1 -->
+              <fieldset class="form-step" data-step="1" data-step-name="Your business">
+                <legend class="visually-hidden">Your business</legend>
+
+                <div class="field">
+                  <label class="field__label" for="ap-legal">Legal business name</label>
+                  <input class="input" type="text" id="ap-legal" name="legalBusinessName" autocomplete="organization" required>
+                  <p class="field__error">Enter the name on your registration.</p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="ap-website">Website URL</label>
+                  <input class="input" type="text" inputmode="url" id="ap-website" name="website" placeholder="yourstore.com" required>
+                  <p class="field__error">Enter the website where you sell.</p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="ap-country">Country</label>
+                  <select class="select" id="ap-country" name="country" required>
+                    <option value="">Select a country</option>
+                    <option value="United States">United States</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <p class="field__error">Select where your business is based.</p>
+                </div>
+
+                <div class="field" data-show-when="country=Other" hidden>
+                  <label class="field__label" for="ap-country-other">Which country?</label>
+                  <input class="input" type="text" id="ap-country-other" name="countryOther" required>
+                  <p class="field__hint">Other countries are possible on review.</p>
+                  <p class="field__error">Tell us which country you are based in.</p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="ap-region">State or province</label>
+                  <input class="input" type="text" id="ap-region" name="stateProvince" autocomplete="address-level1">
+                  <p class="field__hint">Leave blank if it does not apply.</p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="ap-type">Business type</label>
+                  <select class="select" id="ap-type" name="businessType" required>
+                    <option value="">Select a type</option>
+                    <option value="LLC">LLC</option>
+                    <option value="Corporation">Corporation</option>
+                    <option value="Sole proprietor">Sole proprietor</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <p class="field__error">Select how the business is registered.</p>
+                </div>
+
+                <fieldset class="radio-cards">
+                  <legend>What you sell</legend>
+                  <label class="radio-card">
+                    <input type="radio" name="whatYouSell" value="Nutra" required>
+                    <span>
+                      <span class="radio-card__title">Nutra <span class="pill pill--live pill--xs">Live</span></span>
+                      <span class="radio-card__hint">Supplements, vitamins and wellness products</span>
+                    </span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="whatYouSell" value="Peptides" required>
+                    <span>
+                      <span class="radio-card__title">Peptides <span class="pill pill--soon pill--xs">Priority list</span></span>
+                      <span class="radio-card__hint">Research use and licensed telehealth models</span>
+                    </span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="whatYouSell" value="Kratom" required>
+                    <span>
+                      <span class="radio-card__title">Kratom <span class="pill pill--soon pill--xs">Priority list</span></span>
+                      <span class="radio-card__hint">Leaf, powder and capsule brands, US only</span>
+                    </span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="whatYouSell" value="Other" required>
+                    <span>
+                      <span class="radio-card__title">Other</span>
+                      <span class="radio-card__hint">Tell us more in the last step</span>
+                    </span>
+                  </label>
+                  <p class="field__error">Choose the category that fits your store.</p>
+                </fieldset>
+
+                <div class="callout callout--quiet" data-show-when="whatYouSell=Peptides|Kratom" hidden>
+                  <p class="callout__title">Processing for this category opens soon</p>
+                  <p>Submit this form and you'll join the priority list with your details already on file.</p>
+                </div>
+
+                <div class="callout callout--warning" data-show-when="whatYouSell=Kratom&country=Canada" data-blocks-next hidden>
+                  <p class="callout__title">Kratom processing is US only</p>
+                  <p>Canadian nutra brands can apply today. Change the category or the country to carry on.</p>
+                </div>
+              </fieldset>
+
+              <!-- Step 2 -->
+              <fieldset class="form-step" data-step="2" data-step-name="Your processing" hidden>
+                <legend class="visually-hidden">Your processing</legend>
+
+                <fieldset class="radio-cards radio-cards--row">
+                  <legend>Are you currently processing card payments?</legend>
+                  <label class="radio-card">
+                    <input type="radio" name="currentlyProcessing" value="yes" required>
+                    <span><span class="radio-card__title">Yes</span></span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="currentlyProcessing" value="no" required>
+                    <span><span class="radio-card__title">Not yet</span></span>
+                  </label>
+                  <p class="field__error">Let us know whether you are processing today.</p>
+                </fieldset>
+
+                <div class="callout callout--quiet" data-soft-message hidden>
+                  <p class="callout__title">Leave your details anyway</p>
+                  <p>We work best with brands that already have a processing track record. Leave your details and we'll reach out when we have a fit.</p>
+                </div>
+
+                <div class="field-group" data-show-when="currentlyProcessing=yes" hidden>
+                  <div class="field">
+                    <label class="field__label" for="ap-processor">Current processor</label>
+                    <select class="select" id="ap-processor" name="currentProcessor" required>
+                      <option value="">Select a processor</option>
+                      <option value="Stripe">Stripe</option>
+                      <option value="PayPal">PayPal</option>
+                      <option value="Shopify Payments">Shopify Payments</option>
+                      <option value="Square">Square</option>
+                      <option value="Authorize.net">Authorize.net</option>
+                      <option value="NMI">NMI</option>
+                      <option value="Other high-risk processor">Other high-risk processor</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <p class="field__error">Select who processes for you today.</p>
+                  </div>
+
+                  <div class="field">
+                    <label class="field__label" for="ap-time">How long you've been processing</label>
+                    <select class="select" id="ap-time" name="timeProcessing" required>
+                      <option value="">Select a range</option>
+                      <option value="Under 6 months">Under 6 months</option>
+                      <option value="6 to 12 months">6 to 12 months</option>
+                      <option value="1 to 2 years">1 to 2 years</option>
+                      <option value="Over 2 years">Over 2 years</option>
+                    </select>
+                    <p class="field__error">Select how long you have been processing.</p>
+                  </div>
+
+                  <div class="field">
+                    <label class="field__label" for="ap-volume">Average monthly card volume</label>
+                    <select class="select" id="ap-volume" name="monthlyVolume" required>
+                      <option value="">Select a range</option>
+                      <option value="Under $25k">Under $25k</option>
+                      <option value="$25k to $100k">$25k to $100k</option>
+                      <option value="$100k to $500k">$100k to $500k</option>
+                      <option value="$500k to $1M">$500k to $1M</option>
+                      <option value="Over $1M">Over $1M</option>
+                    </select>
+                    <p class="field__error">Select the range that fits your volume.</p>
+                  </div>
+
+                  <div class="field">
+                    <label class="field__label" for="ap-aov">Average order value</label>
+                    <select class="select" id="ap-aov" name="averageOrderValue" required>
+                      <option value="">Select a range</option>
+                      <option value="Under $50">Under $50</option>
+                      <option value="$50 to $150">$50 to $150</option>
+                      <option value="Over $150">Over $150</option>
+                    </select>
+                    <p class="field__error">Select your typical order value.</p>
+                  </div>
+
+                  <div class="field">
+                    <label class="field__label" for="ap-disputes">Dispute ratio over the last 3 months</label>
+                    <select class="select" id="ap-disputes" name="disputeRatio" required>
+                      <option value="">Select a range</option>
+                      <option value="Under 0.5%">Under 0.5%</option>
+                      <option value="0.5% to 1%">0.5% to 1%</option>
+                      <option value="Over 1%">Over 1%</option>
+                      <option value="Not sure">Not sure</option>
+                    </select>
+                    <p class="field__hint">Not sure is a fine answer. Your statements will show it.</p>
+                    <p class="field__error">Select a range, or Not sure.</p>
+                  </div>
+
+                  <fieldset class="radio-cards radio-cards--row">
+                    <legend>Do you sell subscriptions?</legend>
+                    <label class="radio-card">
+                      <input type="radio" name="sellsSubscriptions" value="yes" required>
+                      <span><span class="radio-card__title">Yes</span></span>
+                    </label>
+                    <label class="radio-card">
+                      <input type="radio" name="sellsSubscriptions" value="no" required>
+                      <span><span class="radio-card__title">No</span></span>
+                    </label>
+                    <p class="field__error">Let us know whether you bill on a schedule.</p>
+                  </fieldset>
+
+                  <div class="field">
+                    <label class="file-upload" for="ap-statements">
+                      <span class="file-upload__title">Upload your last 3 months of processing statements</span>
+                      <span class="file-upload__hint">PDF, more than one file is fine. You can also send these later. Applications with statements get the fastest review.</span>
+                      <input type="file" id="ap-statements" name="statements" accept="application/pdf" multiple>
+                    </label>
+                    <ul class="file-list" data-file-list="statements"></ul>
+                  </div>
+                </div>
+              </fieldset>
+
+              <!-- Step 3 -->
+              <fieldset class="form-step" data-step="3" data-step-name="Your details" hidden>
+                <legend class="visually-hidden">Your details</legend>
+
+                <div class="field">
+                  <label class="field__label" for="ap-name">Full name</label>
+                  <input class="input" type="text" id="ap-name" name="fullName" autocomplete="name" required>
+                  <p class="field__error">Enter your full name.</p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="ap-role">Role</label>
+                  <input class="input" type="text" id="ap-role" name="role" placeholder="Owner, finance, operations" required>
+                  <p class="field__error">Tell us your role in the business.</p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="ap-email">Work email</label>
+                  <input class="input" type="email" id="ap-email" name="workEmail" autocomplete="email" required>
+                  <p class="field__error">Enter an email address we can reply to.</p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="ap-phone">Phone</label>
+                  <input class="input" type="tel" id="ap-phone" name="phone" autocomplete="tel" required>
+                  <p class="field__error">Enter a number an underwriter can reach you on.</p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="ap-besttime">Best time to reach you</label>
+                  <select class="select" id="ap-besttime" name="bestTime" required>
+                    <option value="">Select a time</option>
+                    <option value="Morning">Morning</option>
+                    <option value="Afternoon">Afternoon</option>
+                    <option value="Evening">Evening</option>
+                  </select>
+                  <p class="field__hint">Times are read in <span data-timezone>your local time</span>.</p>
+                  <p class="field__error">Select when we should call.</p>
+                  <input type="hidden" name="timezone" value="">
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="ap-heard">How did you hear about us?</label>
+                  <input class="input" type="text" id="ap-heard" name="heardAbout">
+                  <p class="field__hint">Optional.</p>
+                </div>
+
+                <div class="field">
+                  <label class="checkbox">
+                    <input type="checkbox" name="consent" value="yes" required>
+                    <span>I agree that my details can be used to review this application and contact me about processing, as set out in the <a href="legal/privacy.html">privacy notice</a>.</span>
+                  </label>
+                  <p class="field__error">Please agree before sending your application.</p>
+                </div>
+
+                <div class="field">
+                  <label class="checkbox">
+                    <input type="checkbox" name="marketingOptIn" value="yes">
+                    <span>Send me occasional updates about processing for my category. Optional.</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="form-nav">
+                <button class="btn btn--secondary" type="button" data-step-back hidden>Back</button>
+                <button class="btn btn--primary" type="button" data-step-next>Next</button>
+                <button class="btn btn--primary" type="submit" data-step-submit hidden>Get my custom rate</button>
+              </div>
+              <span class="trust-line">Every term shown before you sign. Your details go only to our underwriting team.</span>
+            </form>
+
+            <div class="form-success" data-success data-for="apply-form" role="status" tabindex="-1" hidden>
+              <h2>Thanks, we've got your details</h2>
+              <p>An underwriter will be in touch at the email you gave us. <span class="ph-text">[PLACEHOLDER: response time, if committed]</span></p>
+            </div>
+          </div>
+
+          <aside class="apply-aside" data-note="Intent: answer what happens next while the visitor is still deciding whether to finish, and tell them what to have ready so the first reply is not a document request. | SEO: no keyword target. | Dev: sticky from 1024px, stacked above the form on mobile. The contact address is selectable text, not a mailto, while the domain is a placeholder.">
+            <div class="card card--ice">
+              <h2>What happens next</h2>
+              <ol>
+                <li>We review your details and statements.</li>
+                <li>An underwriter contacts you with questions, if any.</li>
+                <li>You get your custom rate in writing.</li>
+              </ol>
+            </div>
+
+            <div class="card">
+              <h2>Have these ready</h2>
+              <ul>
+                <li>Business registration</li>
+                <li>ID for owners</li>
+                <li>Your last 3 months of processing statements</li>
+                <li>Product list, and lab certificates for some products</li>
+              </ul>
+            </div>
+
+            <div class="card card--flat">
+              <h2>Questions first?</h2>
+              <p class="apply-aside__contact">underwriting@<span class="ph-text">[PLACEHOLDER: domain]</span></p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer">
+    <noscript>
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="nutra.html">Nutra</a></li>
+          <li><a href="peptides.html">Peptides</a></li>
+          <li><a href="kratom.html">Kratom</a></li>
+          <li><a href="apply.html">Get my custom rate</a></li>
+          <li><a href="contact.html">Talk to underwriting</a></li>
+          <li><a href="legal/terms.html">Terms</a></li>
+          <li><a href="legal/privacy.html">Privacy</a></li>
+          <li><a href="legal/acceptable-use.html">Acceptable use and restricted products</a></li>
+          <li><a href="legal/restricted-regions.html">Restricted regions</a></li>
+        </ul>
+      </nav>
+    </noscript>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

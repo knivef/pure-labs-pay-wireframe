@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>High Risk Payment Processing for Supplements | Pure Labs Pay</title>
+  <meta name="description" content="Merchant accounts for nutra brands in the US and Canada, with peptide and kratom processing coming soon. Get a custom rate built around your history.">
+  <!-- The design system's faces are mt-neue-display, mt-neue-text, mt-sans and
+       mt-mono, which are licensed and not ours. The stacks in css/styles.css
+       name each face first, then the substitutes the reference gives: Manrope
+       for the two neue cuts, Inter for the sans, IBM Plex Mono for the mono.
+       This link stays commented out so the build opens straight from the
+       filesystem with no external request. Enable it, or self host, or drop in
+       the licensed faces, for production. -->
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- SEO -->
+  <!-- Replace the [PLACEHOLDER: domain] base in these four places, in
+       sitemap.xml, robots.txt, llms.txt and in SITE_BASE in js/main.js. -->
+  <link rel="canonical" href="https://[PLACEHOLDER: domain]/index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Pure Labs Pay">
+  <meta property="og:title" content="High Risk Payment Processing for Supplements | Pure Labs Pay">
+  <meta property="og:description" content="Merchant accounts for nutra brands in the US and Canada, with peptide and kratom processing coming soon. Get a custom rate built around your history.">
+  <meta property="og:url" content="https://[PLACEHOLDER: domain]/index.html">
+  <meta property="og:image" content="https://[PLACEHOLDER: domain]/assets/og-index.png">
+  <meta property="og:image:alt" content="Pure Labs Pay, payment processing for nutra, peptide and kratom brands">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="High Risk Payment Processing for Supplements | Pure Labs Pay">
+  <meta name="twitter:description" content="Merchant accounts for nutra brands in the US and Canada, with peptide and kratom processing coming soon. Get a custom rate built around your history.">
+  <meta name="twitter:image" content="https://[PLACEHOLDER: domain]/assets/og-index.png">
+  <!-- [PLACEHOLDER: Open Graph image, 1200 by 630, per assets/README.md] -->
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"> -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<!-- data-mode is set here so the page is styled before main.js runs, then
+     main.js applies ?mode= or the stored choice. Default is mockup. -->
+<body data-mode="mockup">
+  <!-- Shared chrome is rendered by js/main.js into these mounts, because the
+       build has no build step. The noscript list keeps the site navigable
+       with scripting off. -->
+  <div id="site-header">
+    <noscript>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="nutra.html">Nutra</a></li>
+          <li><a href="peptides.html">Peptides</a></li>
+          <li><a href="kratom.html">Kratom</a></li>
+          <li><a href="apply.html">Get my custom rate</a></li>
+          <li><a href="contact.html">Talk to underwriting</a></li>
+        </ul>
+      </nav>
+    </noscript>
+  </div>
+
+  <main id="main" class="main">
+
+    <!-- 1. Hero -->
+    <section class="section hero graph-field" data-note="Intent: say what we process and who for in one line, then hand the visitor the two paths, apply or talk to a person. Nutra leads, because it is the live category. | SEO: primary keyword high risk payment processor for supplements, carried in the meta title. Merchant history is signalled by the eyebrow and the statements line, never stated as a requirement. | Dev: copy stack left, product mock right on desktop, stacked on mobile. The faint grid is the graph field from the design system. No photography.">
+      <div class="container">
+        <div class="split">
+          <div class="hero__copy">
+            <p class="eyebrow">For established nutra brands</p>
+            <h1>Payment processing for nutra, peptide and kratom brands</h1>
+            <p class="lead">We are a high risk payment processor for supplements, which means your category is the business, not the exception. Stable card processing for supplement and wellness sellers in the US and Canada. Switching processors? Bring your recent statements and we'll build your rate around them.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary" href="apply.html">Get my custom rate</a>
+              <a class="btn btn--secondary" href="contact.html">Talk to underwriting</a>
+            </div>
+            <span class="trust-line">Underwritten by people who know your category. Every term shown before you sign.</span>
+          </div>
+
+          <figure class="checkout-card" data-note="Intent: show a clean approval and the category state in one object, instead of a stock photo. | Dev: sample data only, labelled Example, built in markup with no image file. The green dot is the one accent marker the design system allows here. Never show a real merchant order, a real amount or a card network mark.">
+            <figcaption class="mock-caption">
+              <span class="checkout-card__tag">Example</span>
+              <span class="mock-caption__text">An approved checkout, with the three category states beneath it. Sample data, not a real order.</span>
+            </figcaption>
+            <p class="checkout-card__status"><span class="checkout-card__dot" aria-hidden="true"></span>Order approved</p>
+            <dl class="checkout-card__rows">
+              <div class="checkout-card__row"><dt>Order</dt><dd>10482</dd></div>
+              <div class="checkout-card__row"><dt>Type</dt><dd>Subscription renewal</dd></div>
+              <div class="checkout-card__row"><dt>Settlement</dt><dd>USD</dd></div>
+            </dl>
+            <ul class="chip-row">
+              <li class="chip chip--live">Nutra: Live</li>
+              <li class="chip chip--muted">Peptides: Coming soon</li>
+              <li class="chip chip--muted">Kratom: Coming soon</li>
+            </ul>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Trust strip, the reusable block -->
+    <div data-block="trust-strip"></div>
+
+    <!-- 3. Problem -->
+    <section class="section" id="problem" data-note="Intent: name what already happened to this visitor, in their words, before offering anything. Three failures, then the line that says we are the opposite. | SEO: no keyword target, this section earns the read. | Dev: three ice narrative cards. No statistics and no named processors.">
+      <div class="container">
+        <h2>Tired of being the high-risk afterthought?</h2>
+        <div class="feature-grid feature-grid--3">
+          <div class="card card--ice">
+            <h3 class="card__title">Accounts closed without warning</h3>
+            <p>General processors approve supplement stores fast, then close them later, often with funds held.</p>
+          </div>
+          <div class="card card--ice">
+            <h3 class="card__title">Declines you can't explain</h3>
+            <p>Good orders get blocked by risk rules that were never built for your products.</p>
+          </div>
+          <div class="card card--ice">
+            <h3 class="card__title">Support that doesn't know your category</h3>
+            <p>Every review starts with explaining what you sell.</p>
+          </div>
+        </div>
+        <p class="section-close">We only work with lab and wellness brands, so your category is the starting point, not a red flag.</p>
+      </div>
+    </section>
+
+    <!-- 4. Verticals -->
+    <section class="section section--bordered" id="verticals" data-note="Intent: the three categories and their real state, so nobody applies for something that is not open yet. | SEO: internal links to the three category pages, which carry the category keywords. | Dev: status pills come straight from the rollout state in CLAUDE.md. The two coming soon cards link to the priority list anchor, not the apply form.">
+      <div class="container">
+        <h2>Processing for three categories, and only these three</h2>
+        <div class="feature-grid feature-grid--3">
+          <div class="card">
+            <p class="chip-row"><span class="pill pill--live">Live</span></p>
+            <h3 class="card__title">Nutra</h3>
+            <p>Supplements, vitamins, sports nutrition and wellness products. One-time orders and subscriptions.</p>
+            <p><a href="nutra.html">See nutra processing</a></p>
+          </div>
+          <div class="card">
+            <p class="chip-row"><span class="pill pill--soon">Coming soon</span></p>
+            <h3 class="card__title">Peptides</h3>
+            <p>For compliant peptide sellers. Onboarding opens soon.</p>
+            <p><a href="peptides.html#priority-list">Join the priority list</a></p>
+          </div>
+          <div class="card">
+            <p class="chip-row"><span class="pill pill--soon">Coming soon, US</span></p>
+            <h3 class="card__title">Kratom</h3>
+            <p>For leaf, powder and capsule brands in supported states.</p>
+            <p><a href="kratom.html#priority-list">Join the priority list</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Pillars -->
+    <section class="section" id="pillars" data-note="Intent: the four reasons to choose us, in the order from the positioning. Pricing is described by what it is based on, never by a number. | SEO: no keyword target. | Dev: hairline rules rather than boxes, so the page keeps its ledger texture. Pillar three must never gain a rate, a bracket or a percentage.">
+      <div class="container">
+        <h2>Built to keep you processing</h2>
+        <div class="feature-grid">
+          <div class="pillar">
+            <h3>Built for your category</h3>
+            <p>Underwriting that already knows supplements, peptides and botanicals. No explaining your products from scratch.</p>
+          </div>
+          <div class="pillar">
+            <h3>Stability first</h3>
+            <p>Dispute alerts, fraud screening and descriptor controls that help keep you under card network thresholds.</p>
+          </div>
+          <div class="pillar">
+            <h3>Pricing built around your history</h3>
+            <p>Your rate is based on your recent processing, not a generic high-risk bracket. Proven brands get better terms.</p>
+          </div>
+          <div class="pillar">
+            <h3>A real team</h3>
+            <p>One named contact who knows your account, from the application through to your busiest month.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. How it works, the reusable block, shared with the category pages -->
+    <div data-block="how-it-works"></div>
+
+    <!-- 7. Features -->
+    <section class="section" id="features" data-note="Intent: the capability list a store owner scans for before they will fill in a form. Capabilities only, no terms, no numbers. | SEO: no keyword target, though the tiles carry product language a reader expects. | Dev: six tiles with line icons drawn in markup. The two CONFIRM items hold until the team signs off on networks and settlement currencies.">
+      <div class="container">
+        <h2>Everything a high-risk supplement store needs</h2>
+        <div class="feature-grid feature-grid--3">
+        <div class="card">
+          <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+          <h3 class="card__title">Card acceptance</h3>
+          <p>Major credit and debit cards. <span class="ph-text">[CONFIRM: accepted networks]</span></p>
+        </div>
+        <div class="card">
+          <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15"/><path d="M4 20v-5h5"/></svg>
+          <h3 class="card__title">Subscriptions and recurring billing</h3>
+          <p>Auto-ship and memberships with smart retries.</p>
+        </div>
+        <div class="card">
+          <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 16v-5a6 6 0 0 0-12 0v5l-1.5 2h15z"/><path d="M10 21h4"/></svg>
+          <h3 class="card__title">Dispute alerts</h3>
+          <p>Get warned early and resolve before a dispute counts against you.</p>
+        </div>
+        <div class="card">
+          <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M12 9v4"/><path d="M12 16h.01"/></svg>
+          <h3 class="card__title">Fraud screening</h3>
+          <p>Rules tuned for card-not-present wellness orders.</p>
+        </div>
+        <div class="card">
+          <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9h13l-3-3"/><path d="M20 15H7l3 3"/></svg>
+          <h3 class="card__title">USD and CAD</h3>
+          <p>Charge and settle in the currency your customers use. <span class="ph-text">[CONFIRM: settlement currencies]</span></p>
+        </div>
+        <div class="card">
+          <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 8l-4 4 4 4"/><path d="M15 8l4 4-4 4"/></svg>
+          <h3 class="card__title">Hosted checkout and API</h3>
+          <p>Use our checkout or connect your own.</p>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Markets -->
+    <section class="section section--bordered" id="markets" data-note="Intent: set the geography honestly, including the kratom restriction, so nobody applies from a market we cannot serve. | SEO: carries the secondary keywords high risk merchant account USA and high risk merchant account Canada when the copy is finalised. | Dev: two tiles listing which category applies where. Kratom is absent from Canada on purpose, it is a United States only category.">
+      <div class="container">
+        <h2>US and Canada first</h2>
+        <p class="section-intro">We process for brands based in the United States and Canada. Merchants in <span class="ph-text">[PLACEHOLDER: other supported countries]</span> can apply for review. Kratom processing will be available to US merchants in supported states only.</p>
+        <div class="feature-grid">
+          <div class="card card--ice">
+            <h3 class="card__title">United States</h3>
+            <ul class="market-list">
+              <li>Nutra <span class="pill pill--live pill--xs">Live</span></li>
+              <li>Peptides <span class="pill pill--soon pill--xs">Coming soon</span></li>
+              <li>Kratom <span class="pill pill--soon pill--xs">Coming soon, supported states</span></li>
+            </ul>
+          </div>
+          <div class="card card--ice">
+            <h3 class="card__title">Canada</h3>
+            <ul class="market-list">
+              <li>Nutra <span class="pill pill--live pill--xs">Live</span></li>
+              <li>Peptides <span class="pill pill--soon pill--xs">Coming soon</span></li>
+              <li>Kratom <span class="pill pill--soon pill--xs">Not available</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Testimonials. Hidden while CONFIG.showTestimonials is false, and
+         shown as a placeholder when notes are on, so reviewers can see the slot. -->
+    <section class="section" id="testimonials" data-testimonials hidden data-note="Intent: merchant proof, once there is proof to show. | SEO: no keyword target. | Dev: renders only when CONFIG.showTestimonials is true. While the flag is false this section is hidden on the page and appears only in notes mode, as the placeholder below. No quote ships without written approval from the merchant.">
+      <div class="container container--narrow">
+        <h2><span class="ph-text">[PLACEHOLDER: testimonials section heading]</span></h2>
+        <div class="ph ph--4x3">
+          <span class="ph__label">[PLACEHOLDER: 2 to 3 approved merchant quotes]</span>
+        </div>
+        <p class="meta-line mt-4">Hidden on the page while CONFIG.showTestimonials is false.</p>
+      </div>
+    </section>
+
+    <!-- 10. FAQ -->
+    <section class="section section--bordered" id="faq" data-note="Intent: answer what a shut down merchant actually asks, without publishing a single term. The rate answer says how a rate is built, never what it is. | SEO: anchor target for the FAQ link, and the questions carry long tail queries. | Dev: native details and summary, so it works with no script and is keyboard navigable. Keep answers free of times, percentages and limits.">
+      <div class="container container--narrow">
+        <h2>Questions merchants ask us</h2>
+        <div class="faq">
+        <details class="faq__item">
+          <summary>Which products can you process?</summary>
+          <div class="faq__body"><p>Nutra and supplement brands can apply today. Peptide and kratom processing is opening soon, and you can join the priority list now. See our acceptable use page for products we don't support.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>What do I need to apply?</summary>
+          <div class="faq__body"><p>Your business registration, ID for the owners, a live website with your products and policies, and your last three months of processing statements. For some products we'll also ask for lab certificates.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>How is my rate set?</summary>
+          <div class="faq__body"><p>Every rate is custom. We look at your category, your processing history, volume and dispute levels. You see every term in writing before you sign.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>How long does approval take?</summary>
+          <div class="faq__body"><p>It depends on how complete your application is. Applications with recent statements and a ready website move fastest.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Do you support subscriptions?</summary>
+          <div class="faq__body"><p>Yes. We support auto-ship and memberships, and we'll help you set up clear billing descriptors and cancellation flows that cut disputes.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Can I switch from my current processor?</summary>
+          <div class="faq__body"><p>Yes, most of our merchants do. Keep your current setup running while we review, then switch once your account is live.</p></div>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Closing call to action, the reusable block -->
+    <div data-block="final-cta"></div>
+
+  </main>
+
+  <div id="site-footer">
+    <noscript>
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="nutra.html">Nutra</a></li>
+          <li><a href="peptides.html">Peptides</a></li>
+          <li><a href="kratom.html">Kratom</a></li>
+          <li><a href="apply.html">Get my custom rate</a></li>
+          <li><a href="contact.html">Talk to underwriting</a></li>
+          <li><a href="legal/terms.html">Terms</a></li>
+          <li><a href="legal/privacy.html">Privacy</a></li>
+          <li><a href="legal/acceptable-use.html">Acceptable use and restricted products</a></li>
+          <li><a href="legal/restricted-regions.html">Restricted regions</a></li>
+        </ul>
+      </nav>
+    </noscript>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
