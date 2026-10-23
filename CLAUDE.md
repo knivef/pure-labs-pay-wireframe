@@ -89,8 +89,11 @@ team supplies the name, and nothing else on the site names a partner.
 
 ### Markets
 
-United States and Canada first. Other countries possible on review. Kratom is United States only,
-in supported states.
+Markets: global. Merchants in the United States, Canada, the UK, the EU, Australia and other
+supported regions [CONFIRM: supported countries]. Kratom is US only, in supported states.
+
+Settlement: in fiat (major currencies) or crypto (stablecoins). [CONFIRM: currencies, stablecoins
+and networks]
 
 ## 2. Audience
 
@@ -135,35 +138,22 @@ Calls to action, site wide:
 
 Use these exact labels. Do not invent variants.
 
-## 5. Rule B: processing history is required, never stated as a requirement
+## 5. Rule B: lead first
 
-A merchant needs processing history to qualify, but outside the forms the site never says so.
-Signal it softly instead:
+Rule B: Lead first. Merchant processing history is required, but we qualify internally after
+capturing the lead.
 
-- "For established nutra brands"
-- "Switching processors? Bring your recent statements"
-- "Share your recent processing statements" as step 1 of the process
-- "Pricing built around your history"
-
-Never write "processing history required", "no startups", "minimum X months", or any phrasing that
-reads as a gate or a rejection.
-
-The apply form and the waitlist forms ask directly:
-
-- Currently processing: yes or no
-- Current processor
-- Time processing
-- Monthly volume range
-- Dispute ratio range
-- Statements upload
-
-If a visitor answers "Not yet processing", show a soft message, never a decline:
-
-> We work best with brands that already have a processing track record. Leave your details and
-> we'll reach out when we have a fit.
-
-Tag that lead `history: none` in the payload. Leads that are processing carry their answers through
-in the same payload shape.
+- Public pages signal history lightly, only in: "Switching processors? We'll build your rate
+  around your history." and the pillar "Pricing built around your history".
+- Public pages never list documents or statements, never imply a long application, document checks
+  or a minimum history.
+- Never write "processing history required", "no startups", "minimum X months".
+- Two-stage forms. The public lead form (apply page and both priority lists) has 5 fields: name,
+  work email, website, what they're looking for, monthly volume. No qualifying questions. The team
+  qualifies leads internally, then sends the private full application.
+- In the private application, if someone isn't processing payments yet, show a soft message, never
+  a decline: "We work best with brands that already have a processing track record. Leave your
+  details and we'll reach out when we have a fit."
 
 ## 6. Tone
 
@@ -208,8 +198,10 @@ HTML comments, data-note annotations, meta titles, meta descriptions and alt tex
 | `nutra.html` | Nutra and supplement processing | Live |
 | `peptides.html` | RUO peptide processing | Coming soon, waitlist |
 | `kratom.html` | Kratom processing | Coming soon, waitlist, United States only |
-| `apply.html` | Get my custom rate | Multi-step form |
+| `apply.html` | Get my custom rate | 5-field lead form |
 | `contact.html` | Talk to underwriting | |
+| `onboarding/application.html` | Full merchant application | Private, link sent after vetting |
+| `onboarding/invite.html` | Internal: create the private application link for a vetted lead | Private |
 | `legal/terms.html` | Terms | |
 | `legal/privacy.html` | Privacy | |
 | `legal/acceptable-use.html` | Acceptable use | |
@@ -219,8 +211,8 @@ HTML comments, data-note annotations, meta titles, meta descriptions and alt tex
 
 | Page | Primary keyword | Secondary keywords |
 |---|---|---|
-| Home | high risk payment processor for supplements | high risk merchant account USA, high risk merchant account Canada |
-| Nutra | nutra merchant account | nutraceutical merchant account, supplement merchant account, supplement payment processing, nutra merchant account Canada |
+| Home | high risk payment processor for supplements | high risk merchant account, high risk payment processor with crypto settlement, high risk merchant account USA, high risk merchant account Canada, high risk merchant account UK |
+| Nutra | nutra merchant account | nutraceutical merchant account, supplement merchant account, supplement payment processing, nutra payment processing with crypto settlement |
 | Peptides | peptide merchant account | peptide payment processing, peptide payment gateway, research peptides payment processor |
 | Kratom | kratom merchant account | kratom payment processing, kratom credit card processing, kava merchant account |
 
@@ -342,12 +334,17 @@ Rules:
   - `BRAND_NAME`
   - `FORM_ENDPOINT` (empty)
   - `showTestimonials` (false)
-  - `supportedCountries` (United States, Canada)
+  - `supportedCountries`
   - `kratomRestrictedStates`
+  - `DEMO_LEAD`
 - `kratomRestrictedStates` now holds the team's list and the kratom priority list form gates on
   it: a merchant based in one of those states keeps the name, email and consent fields, loses the
   rest, and still submits, with `gate: "restricted-state"` in the payload. It is a hold, never a
   decline. The list itself still carries a CONFIRM, because state law here changes quickly.
+- Private pages under `/onboarding/`: noindex and nofollow, excluded from the sitemap, disallowed
+  in robots.txt, no analytics, never linked from any public page.
+- The wireframe never stores personal ID numbers, tax IDs, date of birth or bank numbers anywhere,
+  including drafts and console logs.
 
 ### Shared blocks
 

@@ -5,15 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kratom Merchant Account and Card Processing | Pure Labs Pay</title>
   <meta name="description" content="Kratom payment processing for US brands is opening soon. Join the priority list and be first in line when onboarding opens.">
-  <!-- The design system's faces are mt-neue-display, mt-neue-text, mt-sans and
-       mt-mono, which are licensed and not ours. The stacks in css/styles.css
-       name each face first, then the substitutes the reference gives: Manrope
-       for the two neue cuts, Inter for the sans, IBM Plex Mono for the mono.
-       This link stays commented out so the build opens straight from the
-       filesystem with no external request. Enable it, or self host, or drop in
-       the licensed faces, for production. -->
-  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- SEO -->
   <!-- Replace the [PLACEHOLDER: domain] base in these four places, in
        sitemap.xml, robots.txt, llms.txt and in SITE_BASE in js/main.js. -->
@@ -31,7 +22,17 @@
   <meta name="twitter:image" content="https://[PLACEHOLDER: domain]/assets/og-kratom.png">
   <!-- [PLACEHOLDER: Open Graph image, 1200 by 630, per assets/README.md] -->
   <!-- /SEO -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"> -->
+  <!-- The design system's faces are mt-neue-display, mt-neue-text, mt-sans and
+       mt-mono, which are licensed and not ours. The stacks in css/styles.css
+       name each face first, then the substitutes the reference gives: Manrope
+       for the two neue cuts, Inter for the sans, IBM Plex Mono for the mono.
+       This link stays commented out so the build opens straight from the
+       filesystem with no external request. Enable it, or self host, or drop in
+       the licensed faces, for production.
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+  -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <!-- data-mode is set here so the page is styled before main.js runs, then
@@ -186,7 +187,7 @@
         <div class="split">
           <div>
             <h2>Get ready before onboarding opens</h2>
-            <p>These five checks are what hold a kratom application up.</p>
+            <p>These four checks are what hold a kratom application up.</p>
           </div>
           <div class="card card--ice">
             <p class="compare__label">Before you apply</p>
@@ -195,7 +196,6 @@
               <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Age gate at checkout</span></li>
               <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>State shipping blocks in place</span></li>
               <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>No health claims anywhere on your site</span></li>
-              <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Your recent processing statements, ready to share</span></li>
             </ul>
           </div>
         </div>
@@ -203,192 +203,17 @@
     </section>
 
     <!-- 6. Priority list form -->
-    <section class="section section--alt" id="priority-list" data-note="Intent: the one action on this page, and the place the state rules are applied rather than described. | SEO: no keyword target, this is the conversion. | Dev: shared form engine. The business state is checked against CONFIG.kratomRestrictedStates: a merchant in one of those states keeps name, email and consent, everything else switches off, and the lead still submits with gate restricted-state in the payload. Ticking Extracts shows the 7-OH note. A Not yet processing answer shows the Rule B soft message and tags history none. Payload carries vertical kratom and source waitlist.">
+    <section class="section section--alt" id="priority-list" data-note="Intent: the one action on this page. Rule B stage one: five fields, no qualifying questions, and no state or legality questions, which belong in the private application. | SEO: no keyword target, this is the conversion. | Dev: the shared lead-form block. The payload carries vertical kratom and source waitlist without asking.">
       <div class="container container--narrow">
         <h2>Join the kratom priority list</h2>
         <p class="lead">We'll reach out in order of fit when onboarding opens.</p>
 
-        <form class="form" id="kratom-priority-form" data-form="waitlist" data-vertical="kratom" novalidate data-note-outside data-note="Dev: field names are the payload keys. Product types is a checkbox group, so it lands in the payload as an array. Switched off fields are skipped by validation and left out of the payload.">
-
-          <div class="field">
-            <label class="field__label" for="kr-name">Full name</label>
-            <input class="input" type="text" id="kr-name" name="fullName" autocomplete="name" required data-keep-active>
-            <p class="field__error">Enter your full name.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="kr-email">Work email</label>
-            <input class="input" type="email" id="kr-email" name="workEmail" autocomplete="email" required data-keep-active>
-            <p class="field__error">Enter an email address we can reply to.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="kr-business">Business name</label>
-            <input class="input" type="text" id="kr-business" name="businessName" autocomplete="organization" required>
-            <p class="field__error">Enter your registered or trading name.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="kr-website">Website</label>
-            <input class="input" type="text" inputmode="url" id="kr-website" name="website" placeholder="yourstore.com" required>
-            <p class="field__error">Enter the website where you sell.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="kr-state">Business state</label>
-            <select class="select" id="kr-state" name="businessState" required>
-              <option value="">Select a state</option>
-              <option value="AL">Alabama</option>
-              <option value="AK">Alaska</option>
-              <option value="AZ">Arizona</option>
-              <option value="AR">Arkansas</option>
-              <option value="CA">California</option>
-              <option value="CO">Colorado</option>
-              <option value="CT">Connecticut</option>
-              <option value="DE">Delaware</option>
-              <option value="DC">District of Columbia</option>
-              <option value="FL">Florida</option>
-              <option value="GA">Georgia</option>
-              <option value="HI">Hawaii</option>
-              <option value="ID">Idaho</option>
-              <option value="IL">Illinois</option>
-              <option value="IN">Indiana</option>
-              <option value="IA">Iowa</option>
-              <option value="KS">Kansas</option>
-              <option value="KY">Kentucky</option>
-              <option value="LA">Louisiana</option>
-              <option value="ME">Maine</option>
-              <option value="MD">Maryland</option>
-              <option value="MA">Massachusetts</option>
-              <option value="MI">Michigan</option>
-              <option value="MN">Minnesota</option>
-              <option value="MS">Mississippi</option>
-              <option value="MO">Missouri</option>
-              <option value="MT">Montana</option>
-              <option value="NE">Nebraska</option>
-              <option value="NV">Nevada</option>
-              <option value="NH">New Hampshire</option>
-              <option value="NJ">New Jersey</option>
-              <option value="NM">New Mexico</option>
-              <option value="NY">New York</option>
-              <option value="NC">North Carolina</option>
-              <option value="ND">North Dakota</option>
-              <option value="OH">Ohio</option>
-              <option value="OK">Oklahoma</option>
-              <option value="OR">Oregon</option>
-              <option value="PA">Pennsylvania</option>
-              <option value="RI">Rhode Island</option>
-              <option value="SC">South Carolina</option>
-              <option value="SD">South Dakota</option>
-              <option value="TN">Tennessee</option>
-              <option value="TX">Texas</option>
-              <option value="UT">Utah</option>
-              <option value="VT">Vermont</option>
-              <option value="VA">Virginia</option>
-              <option value="WA">Washington</option>
-              <option value="WV">West Virginia</option>
-              <option value="WI">Wisconsin</option>
-              <option value="WY">Wyoming</option>
-            </select>
-            <p class="field__hint">Where your business is registered.</p>
-            <p class="field__error">Select the state your business is registered in.</p>
-          </div>
-
-          <div class="callout callout--warning" data-state-gate="businessState" hidden>
-            <p class="callout__title">We can't support merchants based in <span data-state-name>this state</span> right now</p>
-            <p>Leave your email and we'll let you know if that changes.</p>
-          </div>
-
-          <fieldset class="checkbox-group checkbox-group--row" data-require-one="productTypes">
-            <legend>Product types</legend>
-            <label class="checkbox"><input type="checkbox" name="productTypes" value="Leaf or powder"><span>Leaf or powder</span></label>
-            <label class="checkbox"><input type="checkbox" name="productTypes" value="Capsules"><span>Capsules</span></label>
-            <label class="checkbox"><input type="checkbox" name="productTypes" value="Extracts"><span>Extracts</span></label>
-            <label class="checkbox"><input type="checkbox" name="productTypes" value="Kava"><span>Kava</span></label>
-            <label class="checkbox"><input type="checkbox" name="productTypes" value="Other"><span>Other</span></label>
-            <p class="field__error">Select at least one product type.</p>
-          </fieldset>
-
-          <div class="callout callout--quiet" data-show-when-checked="productTypes=Extracts" hidden>
-            <p>Concentrated or synthetic 7-OH products won't be supported.</p>
-          </div>
-
-          <fieldset class="radio-cards radio-cards--row">
-            <legend>Are you currently processing cards?</legend>
-            <label class="radio-card">
-              <input type="radio" name="currentlyProcessing" value="yes" required>
-              <span><span class="radio-card__title">Yes</span></span>
-            </label>
-            <label class="radio-card">
-              <input type="radio" name="currentlyProcessing" value="no" required>
-              <span><span class="radio-card__title">Not yet</span></span>
-            </label>
-            <p class="field__error">Let us know whether you are processing today.</p>
-          </fieldset>
-
-          <div class="field-group" data-show-when="currentlyProcessing=yes" hidden>
-            <div class="field">
-              <label class="field__label" for="kr-processor">Current processor</label>
-              <input class="input" type="text" id="kr-processor" name="currentProcessor" required>
-              <p class="field__error">Tell us who processes for you today.</p>
-            </div>
-
-            <div class="field">
-              <label class="field__label" for="kr-time">Time processing</label>
-              <select class="select" id="kr-time" name="timeProcessing" required>
-                <option value="">Select a range</option>
-                <option value="Under 6 months">Under 6 months</option>
-                <option value="6 to 12 months">6 to 12 months</option>
-                <option value="1 to 2 years">1 to 2 years</option>
-                <option value="Over 2 years">Over 2 years</option>
-              </select>
-              <p class="field__error">Select how long you have been processing.</p>
-            </div>
-          </div>
-
-          <div class="callout callout--quiet" data-soft-message hidden>
-            <p class="callout__title">Leave your details anyway</p>
-            <p>We work best with brands that already have a processing track record. Leave your details and we'll reach out when we have a fit.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="kr-volume">Average monthly card volume</label>
-            <select class="select" id="kr-volume" name="monthlyVolume" required>
-              <option value="">Select a range</option>
-              <option value="Under $25k">Under $25k</option>
-              <option value="$25k to $100k">$25k to $100k</option>
-              <option value="$100k to $500k">$100k to $500k</option>
-              <option value="Over $500k">Over $500k</option>
-            </select>
-            <p class="field__error">Select the range that fits your current volume.</p>
-          </div>
-
-          <div class="field">
-            <label class="checkbox">
-              <input type="checkbox" name="legalStatesOnly" value="yes" required>
-              <span>I only sell to states where kratom is legal.</span>
-            </label>
-            <p class="field__error">We can only take this forward if you confirm this.</p>
-          </div>
-
-          <div class="field">
-            <label class="checkbox">
-              <input type="checkbox" name="consent" value="yes" required data-keep-active>
-              <span>I agree that my details can be used to contact me about processing, as set out in the <a href="legal/privacy.html">privacy notice</a>.</span>
-            </label>
-            <p class="field__error">Please agree before sending your details.</p>
-          </div>
-
-          <div>
-            <button class="btn btn--primary" type="submit">Join the priority list</button>
-            <span class="trust-line">No commitment. Your details go only to our underwriting team.</span>
-          </div>
-        </form>
-
-        <div class="form-success" data-success data-for="kratom-priority-form" role="status" tabindex="-1" hidden>
-          <h2>You're on the list</h2>
-          <p>We'll email you when kratom onboarding opens.</p>
-        </div>
+        <div data-block="lead-form"
+             data-vertical="kratom"
+             data-submit-label="Join the priority list"
+             data-trust="No commitment. Your details go only to our underwriting team."
+             data-success-title="You&#39;re on the list"
+             data-success-text="We'll email you when kratom onboarding opens."></div>
       </div>
     </section>
 
@@ -414,8 +239,8 @@
             <div class="faq__body"><p>Not for kratom. Health Canada doesn't allow kratom to be sold for consumption. Canadian nutra brands can apply today.</p></div>
           </details>
           <details class="faq__item">
-            <summary>What will I need to apply?</summary>
-            <div class="faq__body"><p>Business registration, owner ID, a live site with age and state controls, batch lab results and your recent processing statements.</p></div>
+            <summary>What will I need to join?</summary>
+            <div class="faq__body"><p>Just a few details. When onboarding opens, our team walks you through the rest.</p></div>
           </details>
         </div>
       </div>

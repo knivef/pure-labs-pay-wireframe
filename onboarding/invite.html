@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create an application link | Pure Labs Pay</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Internal tool. Creates the private application link for a vetted lead.">
+  <!-- Private internal page. Never linked from a public page, excluded from
+       sitemap.xml, disallowed in robots.txt, and carrying no analytics. -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body data-mode="mockup" data-private="1" data-prefix="../">
+
+  <header class="app-header" data-note="Intent: an internal tool, so the header carries the mark and nothing else. | Dev: deliberately not the shared site header.">
+    <div class="container app-header__inner">
+      <span class="brand">
+        <span class="brand__mark" aria-hidden="true">PL</span>
+        <span class="brand__name" data-brand>Pure Labs Pay</span>
+      </span>
+      <span class="meta-line">Internal: underwriting only</span>
+    </div>
+  </header>
+
+  <main id="main" class="main">
+    <section class="section section--tight">
+      <div class="container">
+        <p class="eyebrow">Invite</p>
+        <h1>Create an application link</h1>
+        <p class="lead">Leads from the public forms land here. Vet one, create its private link, then send the invite.</p>
+      </div>
+    </section>
+
+    <section class="section section--tight" data-note="Intent: the queue, as an underwriter sees it. Enough to judge fit and nothing more. | SEO: none, the page is noindex and nofollow. | Dev: three sample rows. There is no history column on purpose: the public lead form no longer asks, and the answer only exists once the private application comes back.">
+      <div class="container">
+        <!-- The table is wider than a phone, so it scrolls inside its own box
+             rather than scrolling the page. tabindex makes that reachable from
+             the keyboard. -->
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Leads waiting to be vetted">
+        <table class="lead-table" data-lead-table>
+          <caption class="visually-hidden">Leads waiting to be vetted</caption>
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Website</th>
+              <th scope="col">Category</th>
+              <th scope="col">Looking for</th>
+              <th scope="col">Volume band</th>
+              <th scope="col">Status</th>
+              <th scope="col"><span class="visually-hidden">Action</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-lead-name="Dana Okafor">
+              <th scope="row">Dana Okafor</th>
+              <td>northline.co</td>
+              <td>Nutra</td>
+              <td>Better terms than my current setup</td>
+              <td>$100k to $500k</td>
+              <td data-lead-status>Vetted</td>
+              <td><button class="btn btn--primary btn--compact" type="button" data-create-link>Create application link</button></td>
+            </tr>
+            <tr data-lead-name="Mia Trent">
+              <th scope="row">Mia Trent</th>
+              <td>northlineresearch.com</td>
+              <td>Peptides</td>
+              <td>Fiat or crypto settlement</td>
+              <td>Over $1M</td>
+              <td data-lead-status>New</td>
+              <td><button class="btn btn--secondary btn--compact" type="button" data-create-link>Create application link</button></td>
+            </tr>
+            <tr data-lead-name="Sam Reyes">
+              <th scope="row">Sam Reyes</th>
+              <td>leafhouse.co</td>
+              <td>Kratom</td>
+              <td>A new payment processor</td>
+              <td>Under $25k</td>
+              <td data-lead-status>Declined</td>
+              <td><button class="btn btn--secondary btn--compact" type="button" data-create-link>Create application link</button></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" data-note="Intent: the link and the words that go with it, so two underwriters send the same invite. | Dev: the ref is generated here. Copy uses the clipboard, and nothing is emailed from the wireframe.">
+      <div class="container">
+        <div class="invite-panel" data-invite-panel hidden>
+          <div>
+            <h2 class="h-minor">Private application link</h2>
+            <div class="invite-row">
+              <input class="input" type="text" data-invite-link readonly aria-label="Private application link">
+              <button class="btn btn--secondary btn--compact" type="button" data-invite-copy>Copy</button>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="h-minor">Invite email</h2>
+            <p class="meta-line">Subject: Your Pure Labs Pay application</p>
+            <p class="invite-preview" data-invite-preview></p>
+          </div>
+
+          <p class="meta-line" data-invite-status role="status"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p class="meta-line">Internal tool. Not linked from any public page, excluded from the sitemap and disallowed in robots.txt.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

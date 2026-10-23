@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Complete your application | Pure Labs Pay</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Private merchant application. Opens only with the link sent by the underwriting team.">
+  <!-- Private page. Never linked from a public page, excluded from sitemap.xml,
+       disallowed in robots.txt, and carrying no analytics. The fonts note and
+       the SEO block from the public pages are deliberately absent. -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body data-mode="mockup" data-private="1" data-prefix="../">
+
+  <header class="app-header" data-note="Intent: a private page, so the header carries the mark and nothing else. No navigation, no calls to action, nothing that invites a visitor to wander. | Dev: deliberately not the shared site header.">
+    <div class="container app-header__inner">
+      <span class="brand">
+        <span class="brand__mark" aria-hidden="true">PL</span>
+        <span class="brand__name" data-brand>Pure Labs Pay</span>
+      </span>
+      <span class="meta-line" data-ref-label></span>
+    </div>
+  </header>
+
+  <main id="main" class="main">
+
+    <!-- Shown when the link carries no valid ref -->
+    <section class="section" data-private-gate hidden>
+      <div class="container container--narrow">
+        <h1>This application is private</h1>
+        <p class="lead">Use the link from your email. Need a new one? Email underwriting@<span class="ph-text">[PLACEHOLDER: domain]</span>.</p>
+      </div>
+    </section>
+
+    <!-- The application itself -->
+    <div data-private-app hidden>
+      <section class="section section--tight">
+        <div class="container">
+          <h1>Complete your application</h1>
+          <p class="lead">You're one step from your custom rate. Save at any point and come back when you're ready.</p>
+        </div>
+      </section>
+
+      <div class="container">
+        <div class="app-layout">
+          <aside class="app-aside" data-note="Intent: show how much is left and let someone leave without losing anything. | Dev: sticky section list on desktop, progress bar on mobile. Saving writes a draft to this browser only, and never the masked fields.">
+            <nav class="app-nav" aria-label="Application sections">
+              <ol class="app-nav__list">
+            <li><a class="app-nav__link" href="#s1" data-section-link="s1"><span class="app-nav__index">1</span>Business details</a></li>
+            <li><a class="app-nav__link" href="#s2" data-section-link="s2"><span class="app-nav__index">2</span>Owners</a></li>
+            <li><a class="app-nav__link" href="#s3" data-section-link="s3"><span class="app-nav__index">3</span>Processing history</a></li>
+            <li><a class="app-nav__link" href="#s4" data-section-link="s4"><span class="app-nav__index">4</span>Products</a></li>
+            <li><a class="app-nav__link" href="#s5" data-section-link="s5"><span class="app-nav__index">5</span>Settlement</a></li>
+            <li><a class="app-nav__link" href="#s6" data-section-link="s6"><span class="app-nav__index">6</span>Review and sign</a></li>
+            </ol>
+            </nav>
+            <div class="app-progress">
+              <p class="progress__label"><span data-progress-label>0% complete</span></p>
+              <div class="progress__track"><span class="progress__fill" data-progress-fill></span></div>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn--secondary btn--compact" type="button" data-save-draft>Save and finish later</button>
+              <button class="btn btn--ghost btn--compact" type="button" data-email-link>Email me this link</button>
+            </div>
+            <p class="meta-line" data-save-status role="status"></p>
+          </aside>
+
+          <form class="form app-form" id="application-form" data-form="application" novalidate>
+        <section class="app-section" id="s1" data-app-section="s1" data-note="Intent: the registered facts underwriting needs first, in the order a founder can answer them. | Dev: the country select drives every label below it, so the form reads correctly outside the US. The tax ID is masked, never saved in a draft and never logged.">
+          <h2 class="app-section__title"><span class="app-section__index">1</span>Business details</h2>
+          <div class="app-section__body">
+              <div class="field">
+                <label class="field__label" for="ap-country">Country</label>
+                <p class="field__hint">Sets the labels for the fields below. <span class="ph-text">[CONFIRM: supported countries]</span></p>
+                <select class="select" id="ap-country" name="country" required data-country-select><option value="">Select a country</option></select>
+                <p class="field__error">Select the country the business is registered in.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-legal-name">Legal business name</label>
+                <input class="input" type="text" id="ap-legal-name" name="legalName" required>
+                <p class="field__error">Enter the name on your registration.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-street">Street address</label>
+                <input class="input" type="text" id="ap-street" name="street" required>
+                <p class="field__error">Enter the registered address.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-city">City</label>
+                <input class="input" type="text" id="ap-city" name="city" required>
+                <p class="field__error">Enter the city.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-region"><span data-label="region">State or region</span></label>
+                <input class="input" type="text" id="ap-region" name="region" required>
+                <p class="field__error">Enter the state, province or region.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-postcode"><span data-label="postcode">Postal code</span></label>
+                <input class="input" type="text" id="ap-postcode" name="postcode" required>
+                <p class="field__error">Enter the postal code.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-phone">Business phone</label>
+                <input class="input" type="tel" id="ap-phone" name="businessPhone" required>
+                <p class="field__error">Enter a business phone number.</p>
+              </div>
+              <div class="field">
+                <label class="checkbox"><input type="checkbox" name="tradingSameAsLegal" value="yes" data-same-as-legal><span>Trading name is the same as the legal business name</span></label>
+              </div>
+              <div class="field" data-trading-field>
+                <label class="field__label" for="ap-trading">Trading name</label>
+                <input class="input" type="text" id="ap-trading" name="tradingName" required>
+                <p class="field__error">Enter the trading name, or tick the box above.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-started">Date the business started</label>
+                <p class="field__hint">Optional.</p>
+                <input class="input" type="date" id="ap-started" name="dateStarted">
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-structure">Business structure</label>
+                <select class="select" id="ap-structure" name="structure" required><option value="">Select an option</option><option value="LLC">LLC</option><option value="Corporation">Corporation</option><option value="Partnership">Partnership</option><option value="Sole proprietor">Sole proprietor</option><option value="Other">Other</option></select>
+                <p class="field__error">Select how the business is registered.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-taxid"><span data-label="taxId">Business tax ID</span></label>
+                <p class="field__hint">Masked. Never saved in a draft and never logged by this wireframe.</p>
+                <input class="input" type="password" id="ap-taxid" name="businessTaxId" autocomplete="off" data-sensitive required>
+                <p class="field__error">Enter the business tax ID.</p>
+              </div>
+              <div class="field" data-repeater="websites">
+                <label class="field__label" for="ap-website-1">Website</label>
+                <div data-repeater-list>
+                  <div class="repeater__row"><input class="input" type="text" inputmode="url" id="ap-website-1" name="websites[]" placeholder="yourstore.com" required></div>
+                </div>
+                <p class="field__error">Enter at least one website.</p>
+                <button class="btn btn--secondary btn--compact mt-4" type="button" data-repeater-add>Add another website</button>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-support-email">Support email</label>
+                <input class="input" type="email" id="ap-support-email" name="supportEmail" required>
+                <p class="field__error">Enter the email your customers use.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-support-phone">Support phone</label>
+                <input class="input" type="tel" id="ap-support-phone" name="supportPhone" required>
+                <p class="field__error">Enter the phone number your customers use.</p>
+              </div>
+              <fieldset class="radio-cards radio-cards--row">
+                <legend>Has the business filed for bankruptcy in the last 7 years?</legend>
+                <label class="radio-card"><input type="radio" name="bankruptcy" value="no" required><span><span class="radio-card__title">No</span></span></label>
+                <label class="radio-card"><input type="radio" name="bankruptcy" value="yes" required><span><span class="radio-card__title">Yes</span></span></label>
+                <p class="field__error">Answer so underwriting does not have to ask.</p>
+              </fieldset>
+              <div class="field" data-show-when="bankruptcy=yes" hidden>
+                <label class="field__label" for="ap-bankruptcy-note">Tell us about it</label>
+                <textarea class="textarea" id="ap-bankruptcy-note" name="bankruptcyNote" required></textarea>
+                <p class="field__error">A short explanation is enough.</p>
+              </div>
+          </div>
+        </section>
+
+        <section class="app-section" id="s2" data-app-section="s2" data-note="Intent: every beneficial owner plus the person who runs the business day to day. | Dev: repeatable card with a running ownership total. Date of birth and personal ID are masked and excluded from drafts and logs. The threshold and the guarantor question both carry a CONFIRM.">
+          <h2 class="app-section__title"><span class="app-section__index">2</span>Owners</h2>
+          <div class="app-section__body">
+              <div class="callout callout--quiet">
+                <p>Add every person who owns <span class="ph-text">[CONFIRM: 25]</span>% or more of the business, plus one person who controls it day to day.</p>
+              </div>
+              <div data-owner-list></div>
+              <div class="btn-row mt-5">
+                <button class="btn btn--secondary btn--compact" type="button" data-owner-add>Add another owner</button>
+                <span class="meta-line" data-owner-total>Ownership listed: 0%</span>
+              </div>
+          </div>
+        </section>
+
+        <section class="app-section" id="s3" data-app-section="s3" data-note="Intent: the processing picture. This is where the history question belongs, out of public view. | Dev: a Not yet answer shows the Rule B soft message and never declines. Statements are required only while a merchant is processing elsewhere. The percentage groups have to total 100.">
+          <h2 class="app-section__title"><span class="app-section__index">3</span>Processing history</h2>
+          <div class="app-section__body">
+              <div class="field">
+                <label class="field__label" for="ap-volume-band">Monthly volume band</label>
+                <p class="field__hint">Prefilled from your enquiry. Change it if it is out of date.</p>
+                <select class="select" id="ap-volume-band" name="volumeBand" required><option value="">Select a range</option><option value="Under $25k">Under $25k</option><option value="$25k to $100k">$25k to $100k</option><option value="$100k to $500k">$100k to $500k</option><option value="$500k to $1M">$500k to $1M</option><option value="Over $1M">Over $1M</option></select>
+                <p class="field__error">Select the range that fits your business.</p>
+              </div>
+              <fieldset class="radio-cards radio-cards--row">
+                <legend>Are you currently processing payments?</legend>
+                <label class="radio-card"><input type="radio" name="currentlyProcessing" value="yes" required><span><span class="radio-card__title">Yes</span></span></label>
+                <label class="radio-card"><input type="radio" name="currentlyProcessing" value="no" required><span><span class="radio-card__title">Not yet</span></span></label>
+                <p class="field__error">Let us know whether you are processing today.</p>
+              </fieldset>
+              <div class="callout callout--quiet" data-soft-message hidden>
+                <p class="callout__title">Leave your details anyway</p>
+                <p>We work best with brands that already have a processing track record. Leave your details and we'll reach out when we have a fit.</p>
+              </div>
+              <div class="field" data-repeater="processors" data-show-when="currentlyProcessing=yes" hidden>
+                <label class="field__label" for="ap-processor-1">Current processors</label>
+                <p class="field__hint">Add each one you use today.</p>
+                <div data-repeater-list>
+                  <div class="repeater__row"><input class="input" type="text" id="ap-processor-1" name="processors[]" placeholder="Processor name" required></div>
+                </div>
+                <p class="field__error">Name at least one processor.</p>
+                <button class="btn btn--secondary btn--compact mt-4" type="button" data-repeater-add>Add another processor</button>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-aov">Average order value</label>
+                <select class="select" id="ap-aov" name="averageOrderValue" required><option value="">Select a range</option><option value="Under $50">Under $50</option><option value="$50 to $150">$50 to $150</option><option value="$150 to $500">$150 to $500</option><option value="Over $500">Over $500</option></select>
+                <p class="field__error">Select your typical order value.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-highest">Highest order value</label>
+                <select class="select" id="ap-highest" name="highestOrderValue" required><option value="">Select a range</option><option value="Under $50">Under $50</option><option value="$50 to $150">$50 to $150</option><option value="$150 to $500">$150 to $500</option><option value="Over $500">Over $500</option></select>
+                <p class="field__error">Select your highest order value.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-monthly">Average monthly volume</label>
+                <p class="field__hint">A figure, in your settlement currency.</p>
+                <input class="input" type="text" id="ap-monthly" name="monthlyVolume" required>
+                <p class="field__error">Enter your average monthly volume.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-dispute">Dispute ratio, last 3 months</label>
+                <select class="select" id="ap-dispute" name="disputeRatio" required><option value="">Select a range</option><option value="Under 0.5%">Under 0.5%</option><option value="0.5% to 1%">0.5% to 1%</option><option value="Over 1%">Over 1%</option><option value="Not sure">Not sure</option></select>
+                <p class="field__error">Select a range, or Not sure.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-refund">Refund ratio, last 3 months</label>
+                <select class="select" id="ap-refund" name="refundRatio" required><option value="">Select a range</option><option value="Under 0.5%">Under 0.5%</option><option value="0.5% to 1%">0.5% to 1%</option><option value="Over 1%">Over 1%</option><option value="Not sure">Not sure</option></select>
+                <p class="field__error">Select a range, or Not sure.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-subs">Share of volume on subscriptions</label>
+                <p class="field__hint">A percentage.</p>
+                <input class="input" type="number" id="ap-subs" name="subscriptionShare" required min="0" max="100" data-percent>
+                <p class="field__error">Enter a number between 0 and 100.</p>
+              </div>
+              <fieldset class="percent-group" data-percent-group="channel">
+                <legend>Sales channel split</legend>
+                <p class="field__hint">These add up to 100.</p>
+                <div class="percent-group__grid">
+                  <label class="field__label" for="ap-ch-web">Website<input class="input" type="number" id="ap-ch-web" name="channelWebsite" min="0" max="100" data-percent required></label>
+                  <label class="field__label" for="ap-ch-phone">Phone or invoice<input class="input" type="number" id="ap-ch-phone" name="channelPhone" min="0" max="100" data-percent required></label>
+                  <label class="field__label" for="ap-ch-other">Other<input class="input" type="number" id="ap-ch-other" name="channelOther" min="0" max="100" data-percent required></label>
+                </div>
+                <p class="meta-line" data-percent-total="channel">Total: 0</p>
+                <p class="field__error">These need to add up to 100.</p>
+              </fieldset>
+              <fieldset class="percent-group" data-percent-group="customer">
+                <legend>Customer split</legend>
+                <p class="field__hint">These add up to 100.</p>
+                <div class="percent-group__grid">
+                  <label class="field__label" for="ap-cu-new">New customers<input class="input" type="number" id="ap-cu-new" name="customerNew" min="0" max="100" data-percent required></label>
+                  <label class="field__label" for="ap-cu-ret">Returning customers<input class="input" type="number" id="ap-cu-ret" name="customerReturning" min="0" max="100" data-percent required></label>
+                </div>
+                <p class="meta-line" data-percent-total="customer">Total: 0</p>
+                <p class="field__error">These need to add up to 100.</p>
+              </fieldset>
+              <fieldset class="radio-cards radio-cards--row">
+                <legend>Has an account been closed, or has the business been placed on a terminated list?</legend>
+                <label class="radio-card"><input type="radio" name="priorTermination" value="no" required><span><span class="radio-card__title">No</span></span></label>
+                <label class="radio-card"><input type="radio" name="priorTermination" value="yes" required><span><span class="radio-card__title">Yes</span></span></label>
+                <p class="field__error">Answer so underwriting does not have to ask.</p>
+              </fieldset>
+              <div class="field" data-show-when="priorTermination=yes" hidden>
+                <label class="field__label" for="ap-termination-note">Tell us what happened</label>
+                <textarea class="textarea" id="ap-termination-note" name="priorTerminationNote" required></textarea>
+                <p class="field__error">A short explanation is enough. It does not rule you out.</p>
+              </div>
+              <div class="field" data-show-when="currentlyProcessing=yes" hidden>
+                <label class="file-upload" for="ap-statements">
+                  <span class="file-upload__title">Upload your recent processing statements</span>
+                  <span class="file-upload__hint">PDF, more than one file is fine. Required while you are processing elsewhere.</span>
+                  <input type="file" id="ap-statements" name="statements" accept="application/pdf" multiple required>
+                </label>
+                <ul class="file-list" data-file-list="statements"></ul>
+                <p class="field__error">Add your statements, or ask your underwriter for another way to share them.</p>
+              </div>
+          </div>
+        </section>
+
+        <section class="app-section" id="s4" data-app-section="s4" data-note="Intent: what is actually being sold, in the merchant's own words, with the policy pages an acquiring bank will read. | Dev: category specific questions were deliberately removed. Nothing here asks about labels, certificates, prescribers, age gates or state blocks: those are category rules, not application fields.">
+          <h2 class="app-section__title"><span class="app-section__index">4</span>Products</h2>
+          <div class="app-section__body">
+              <div class="field">
+                <label class="field__label" for="ap-products">What do you sell?</label>
+                <p class="field__hint">A few lines is plenty.</p>
+                <textarea class="textarea" id="ap-products" name="productDescription" required></textarea>
+                <p class="field__error">Describe what you sell.</p>
+              </div>
+              <div class="field">
+                <label class="file-upload" for="ap-product-list">
+                  <span class="file-upload__title">Product list</span>
+                  <span class="file-upload__hint">Optional. Upload a file, or paste a link below.</span>
+                  <input type="file" id="ap-product-list" name="productList" accept="application/pdf,text/csv,application/vnd.ms-excel">
+                </label>
+                <ul class="file-list" data-file-list="productList"></ul>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-product-link">Link to your product list</label>
+                <p class="field__hint">Optional.</p>
+                <input class="input" type="text" id="ap-product-link" name="productListUrl" inputmode="url">
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-refund-url">Refund policy URL</label>
+                <input class="input" type="text" id="ap-refund-url" name="refundPolicyUrl" required inputmode="url">
+                <p class="field__error">Enter the page that holds your refund policy.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-terms-url">Terms URL</label>
+                <input class="input" type="text" id="ap-terms-url" name="termsUrl" required inputmode="url">
+                <p class="field__error">Enter the page that holds your terms.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-ship">Where do you ship to?</label>
+                <p class="field__hint">Countries or regions.</p>
+                <textarea class="textarea" id="ap-ship" name="shipsTo" required></textarea>
+                <p class="field__error">Tell us where you ship.</p>
+              </div>
+          </div>
+        </section>
+
+        <section class="app-section" id="s5" data-app-section="s5" data-note="Intent: where the money lands, and the rule that it only lands somewhere the business owns. | Dev: fiat and crypto groups appear from the method answer. Account and wallet fields have confirm partners, the account number is masked, and validation adapts: IBAN checksum, a 9 digit routing number for a US bank, and a wallet pattern per network.">
+          <h2 class="app-section__title"><span class="app-section__index">5</span>Settlement</h2>
+          <div class="app-section__body">
+              <fieldset class="radio-cards radio-cards--row">
+                <legend>How would you like to be settled? <span class="ph-text">[CONFIRM: settlement methods offered]</span></legend>
+                <label class="radio-card"><input type="radio" name="settlementMethod" value="Fiat" required data-settlement><span><span class="radio-card__title">Fiat</span><span class="radio-card__hint">To a bank account</span></span></label>
+                <label class="radio-card"><input type="radio" name="settlementMethod" value="Crypto" required data-settlement><span><span class="radio-card__title">Crypto</span><span class="radio-card__hint">To a stablecoin wallet</span></span></label>
+                <label class="radio-card"><input type="radio" name="settlementMethod" value="Both" required data-settlement><span><span class="radio-card__title">Both</span><span class="radio-card__hint">Split between the two</span></span></label>
+                <p class="field__error">Choose how you want to be paid out.</p>
+              </fieldset>
+              <div class="callout callout--quiet">
+                <p>Settlement goes only to an account in the business's name or a wallet the business controls.</p>
+              </div>
+              <div class="field-group" data-show-when="settlementMethod=Fiat|Both" hidden>
+              <div class="field">
+                <label class="field__label" for="ap-bank-country">Bank country</label>
+                <p class="field__hint">Sets the label on the code field below.</p>
+                <select class="select" id="ap-bank-country" name="bankCountry" required data-bank-country><option value="">Select a country</option></select>
+                <p class="field__error">Select where the account is held.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-bank-name">Bank name</label>
+                <input class="input" type="text" id="ap-bank-name" name="bankName" required>
+                <p class="field__error">Enter the bank name.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-account-name">Name on the account</label>
+                <p class="field__hint">Must match the legal business name.</p>
+                <input class="input" type="text" id="ap-account-name" name="accountName" required>
+                <p class="field__error">Enter the name on the account.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-account-number">Account number or IBAN</label>
+                <p class="field__hint">Masked. Never saved in a draft and never logged by this wireframe.</p>
+                <input class="input" type="password" id="ap-account-number" name="accountNumber" autocomplete="off" data-sensitive required>
+                <p class="field__error">Enter the account number or IBAN.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-account-confirm">Confirm account number or IBAN</label>
+                <input class="input" type="password" id="ap-account-confirm" name="accountNumberConfirm" autocomplete="off" data-sensitive required>
+                <p class="field__error">The two account numbers need to match.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-bank-code"><span data-label="bankCode">Bank code</span></label>
+                <input class="input" type="text" id="ap-bank-code" name="bankCode" required>
+                <p class="field__error">Enter the code for this bank country.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-settlement-currency">Settlement currency</label>
+                <p class="field__hint"><span class="ph-text">[CONFIRM: currencies, stablecoins and networks]</span></p>
+                <select class="select" id="ap-settlement-currency" name="settlementCurrency" required><option value="">Select a currency</option><option value="USD">USD</option><option value="CAD">CAD</option><option value="GBP">GBP</option><option value="EUR">EUR</option><option value="AUD">AUD</option></select>
+                <p class="field__error">Select the currency you want to be paid in.</p>
+              </div>
+              </div>
+              <div class="field-group" data-show-when="settlementMethod=Crypto|Both" hidden>
+              <div class="field">
+                <label class="field__label" for="ap-stablecoin">Stablecoin</label>
+                <p class="field__hint"><span class="ph-text">[CONFIRM: currencies, stablecoins and networks]</span></p>
+                <select class="select" id="ap-stablecoin" name="stablecoin" required><option value="">Select a stablecoin</option><option value="USDC">USDC</option><option value="USDT">USDT</option></select>
+                <p class="field__error">Select the stablecoin you want to be paid in.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-network">Network</label>
+                <select class="select" id="ap-network" name="network" required data-network><option value="">Select a network</option><option value="Ethereum">Ethereum</option><option value="Base">Base</option><option value="Polygon">Polygon</option><option value="Arbitrum">Arbitrum</option><option value="Solana">Solana</option><option value="Tron">Tron</option></select>
+                <p class="field__error">Select the network for your wallet.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-wallet">Wallet address</label>
+                <input class="input" type="text" id="ap-wallet" name="walletAddress" required autocomplete="off" spellcheck="false">
+                <p class="field__error">Enter a wallet address that matches the network.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-wallet-confirm">Confirm wallet address</label>
+                <input class="input" type="text" id="ap-wallet-confirm" name="walletAddressConfirm" required autocomplete="off" spellcheck="false">
+                <p class="field__error">The two wallet addresses need to match.</p>
+              </div>
+              <div class="field">
+                <label class="checkbox"><input type="checkbox" name="walletControlled" value="yes" required><span>The business controls this wallet.</span></label>
+                <p class="field__error">We can only settle to a wallet the business controls.</p>
+              </div>
+              </div>
+          </div>
+        </section>
+
+        <section class="app-section" id="s6" data-app-section="s6" data-note="Intent: let someone check their own answers before signing, then sign. | Dev: the summary is built from the live values with an Edit link per section. Signature and date are typed, not drawn. Both consent lines carry a CONFIRM until counsel supplies the wording.">
+          <h2 class="app-section__title"><span class="app-section__index">6</span>Review and sign</h2>
+          <div class="app-section__body">
+              <div class="app-summary" data-summary>
+                <p class="meta-line">Your answers appear here as you fill the sections in.</p>
+              </div>
+              <div class="card card--ice mt-5">
+                <h3 class="card__title">Have these ready</h3>
+                <ul class="checklist">
+                  <li><span>Business registration. An online LLC or company filing is fine.</span></li>
+                  <li><span>Photo ID for each owner you listed.</span></li>
+                  <li><span>Recent processing statements, if you are processing today.</span></li>
+                </ul>
+              </div>
+              <div class="field mt-5">
+                <label class="checkbox"><input type="checkbox" name="accuracy" value="yes" required><span>Everything I have entered is accurate and complete. <span class="ph-text">[CONFIRM: accuracy wording from counsel]</span></span></label>
+                <p class="field__error">Please confirm before signing.</p>
+              </div>
+              <div class="field">
+                <label class="checkbox"><input type="checkbox" name="verification" value="yes" required><span>I agree that Pure Labs Pay and its partners may verify this information. <span class="ph-text">[CONFIRM: verification wording from counsel]</span></span></label>
+                <p class="field__error">Please confirm before signing.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-signature">Typed signature</label>
+                <p class="field__hint">Type your full name.</p>
+                <input class="input" type="text" id="ap-signature" name="signature" required>
+                <p class="field__error">Type your name to sign.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ap-sign-date">Date</label>
+                <input class="input" type="date" id="ap-sign-date" name="signatureDate" required>
+                <p class="field__error">Add the date.</p>
+              </div>
+          </div>
+        </section>
+
+
+            <div class="form-nav">
+              <button class="btn btn--primary" type="submit">Submit application</button>
+            </div>
+            <span class="trust-line">Your answers go only to our underwriting team. Masked fields are never saved in a draft and never logged by this wireframe.</span>
+          </form>
+
+          <div class="form-success" data-success data-for="application-form" role="status" tabindex="-1" hidden>
+            <h2>Application received</h2>
+            <p>Thanks. Your underwriter has everything they need to start. They will email you if anything is missing, and you will get your custom rate in writing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer" data-note="Intent: a minimal footer for a private page. One legal link and one address, nothing else.">
+    <div class="container">
+      <p class="meta-line"><span data-brand>Pure Labs Pay</span> is not a bank. <a href="../legal/privacy.html">Privacy notice</a>. Questions: underwriting@<span class="ph-text">[PLACEHOLDER: domain]</span></p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

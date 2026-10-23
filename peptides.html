@@ -5,15 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Peptide Merchant Account and Payment Processing | Pure Labs Pay</title>
   <meta name="description" content="Card processing for peptide sellers is opening soon. Join the priority list for a peptide merchant account built for compliant brands.">
-  <!-- The design system's faces are mt-neue-display, mt-neue-text, mt-sans and
-       mt-mono, which are licensed and not ours. The stacks in css/styles.css
-       name each face first, then the substitutes the reference gives: Manrope
-       for the two neue cuts, Inter for the sans, IBM Plex Mono for the mono.
-       This link stays commented out so the build opens straight from the
-       filesystem with no external request. Enable it, or self host, or drop in
-       the licensed faces, for production. -->
-  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- SEO -->
   <!-- Replace the [PLACEHOLDER: domain] base in these four places, in
        sitemap.xml, robots.txt, llms.txt and in SITE_BASE in js/main.js. -->
@@ -31,7 +22,17 @@
   <meta name="twitter:image" content="https://[PLACEHOLDER: domain]/assets/og-peptides.png">
   <!-- [PLACEHOLDER: Open Graph image, 1200 by 630, per assets/README.md] -->
   <!-- /SEO -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"> -->
+  <!-- The design system's faces are mt-neue-display, mt-neue-text, mt-sans and
+       mt-mono, which are licensed and not ours. The stacks in css/styles.css
+       name each face first, then the substitutes the reference gives: Manrope
+       for the two neue cuts, Inter for the sans, IBM Plex Mono for the mono.
+       This link stays commented out so the build opens straight from the
+       filesystem with no external request. Enable it, or self host, or drop in
+       the licensed faces, for production.
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+  -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <!-- data-mode is set here so the page is styled before main.js runs, then
@@ -65,7 +66,7 @@
             <p class="chip-row mb-2"><span class="pill pill--soon">Coming soon</span></p>
             <p class="eyebrow">Peptide payment processing</p>
             <h1>Peptide merchant accounts, opening soon</h1>
-            <p class="lead">Card processing for compliant peptide sellers in the US and Canada. Join the priority list and we'll reach out as onboarding opens.</p>
+            <p class="lead">Card processing for compliant peptide sellers worldwide, with settlement in fiat or crypto. Join the priority list and we'll reach out as onboarding opens.</p>
             <div class="btn-row">
               <a class="btn btn--primary" href="#priority-list">Join the priority list</a>
             </div>
@@ -146,8 +147,8 @@
           </div>
           <div class="card">
             <svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9h13l-3-3"/><path d="M20 15H7l3 3"/></svg>
-            <h3 class="card__title">USD and CAD processing</h3>
-            <p><span class="ph-text">[CONFIRM: settlement currencies]</span></p>
+            <h3 class="card__title">Settlement in fiat or crypto</h3>
+            <p><span class="ph-text">[CONFIRM: currencies, stablecoins and networks]</span></p>
           </div>
         </div>
       </div>
@@ -181,7 +182,6 @@
               <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>No human-use, dosing or health claims on research products</span></li>
               <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Reconstitution supplies not bundled or cross-sold with research products</span></li>
               <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Clear terms, refund policy and contact details</span></li>
-              <li><svg class="checklist__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Your recent processing statements, ready to share</span></li>
             </ul>
           </div>
         </div>
@@ -189,149 +189,17 @@
     </section>
 
     <!-- 6. Priority list form -->
-    <section class="section section--alt" id="priority-list" data-note="Intent: the one action on this page. Short enough to finish, specific enough for underwriting to rank fit. | SEO: no keyword target, this is the conversion. | Dev: the shared form engine in js/main.js. Nothing posts anywhere while CONFIG.FORM_ENDPOINT is empty: it validates, logs the payload and shows the success panel. A Not yet processing answer shows the soft message and tags history none, never a decline. Free mail addresses are accepted and tagged emailType freemail. Payload carries vertical peptides and source waitlist.">
+    <section class="section section--alt" id="priority-list" data-note="Intent: the one action on this page. Rule B stage one: five fields, no qualifying questions. | SEO: no keyword target, this is the conversion. | Dev: the shared lead-form block. The category is set here, so the payload carries vertical peptides and source waitlist without asking.">
       <div class="container container--narrow">
         <h2>Join the peptide priority list</h2>
         <p class="lead">We'll reach out in order of fit when onboarding opens.</p>
 
-        <form class="form" id="priority-list-form" data-form="waitlist" data-vertical="peptides" novalidate data-note-outside data-note="Dev: field names are the payload keys. Required fields inside a hidden conditional group are skipped by validation and left out of the payload.">
-
-          <div class="field">
-            <label class="field__label" for="pl-name">Full name</label>
-            <input class="input" type="text" id="pl-name" name="fullName" autocomplete="name" required>
-            <p class="field__error">Enter your full name.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="pl-email">Work email</label>
-            <input class="input" type="email" id="pl-email" name="workEmail" autocomplete="email" required>
-            <p class="field__hint">A business address helps underwriting place you faster, but any address works.</p>
-            <p class="field__error">Enter an email address we can reply to.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="pl-business">Business name</label>
-            <input class="input" type="text" id="pl-business" name="businessName" autocomplete="organization" required>
-            <p class="field__error">Enter your registered or trading name.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="pl-website">Website</label>
-            <input class="input" type="text" inputmode="url" id="pl-website" name="website" placeholder="yourstore.com" required>
-            <p class="field__error">Enter the website where you sell.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="pl-country">Country</label>
-            <select class="select" id="pl-country" name="country" required>
-              <option value="">Select a country</option>
-              <option value="United States">United States</option>
-              <option value="Canada">Canada</option>
-              <option value="Other">Other</option>
-            </select>
-            <p class="field__error">Select where your business is based.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="pl-region">State or province</label>
-            <input class="input" type="text" id="pl-region" name="stateProvince" autocomplete="address-level1">
-            <p class="field__hint">Leave blank if it does not apply.</p>
-          </div>
-
-          <fieldset class="radio-cards">
-            <legend>Sales model</legend>
-            <label class="radio-card">
-              <input type="radio" name="salesModel" value="Research use only" required>
-              <span>
-                <span class="radio-card__title">Research use only</span>
-                <span class="radio-card__hint">Supplied to labs and institutions</span>
-              </span>
-            </label>
-            <label class="radio-card">
-              <input type="radio" name="salesModel" value="Telehealth or prescription" required>
-              <span>
-                <span class="radio-card__title">Telehealth or prescription</span>
-                <span class="radio-card__hint">Licensed prescribers involved</span>
-              </span>
-            </label>
-            <label class="radio-card">
-              <input type="radio" name="salesModel" value="Both" required>
-              <span>
-                <span class="radio-card__title">Both</span>
-                <span class="radio-card__hint">Two channels under one business</span>
-              </span>
-            </label>
-            <p class="field__error">Choose the model that fits your business.</p>
-          </fieldset>
-
-          <fieldset class="radio-cards radio-cards--row">
-            <legend>Are you currently processing cards?</legend>
-            <label class="radio-card">
-              <input type="radio" name="currentlyProcessing" value="yes" required>
-              <span><span class="radio-card__title">Yes</span></span>
-            </label>
-            <label class="radio-card">
-              <input type="radio" name="currentlyProcessing" value="no" required>
-              <span><span class="radio-card__title">Not yet</span></span>
-            </label>
-            <p class="field__error">Let us know whether you are processing today.</p>
-          </fieldset>
-
-          <div class="field-group" data-show-when="currentlyProcessing=yes" hidden>
-            <div class="field">
-              <label class="field__label" for="pl-processor">Current processor</label>
-              <input class="input" type="text" id="pl-processor" name="currentProcessor" required>
-              <p class="field__error">Tell us who processes for you today.</p>
-            </div>
-
-            <div class="field">
-              <label class="field__label" for="pl-time">Time processing</label>
-              <select class="select" id="pl-time" name="timeProcessing" required>
-                <option value="">Select a range</option>
-                <option value="Under 6 months">Under 6 months</option>
-                <option value="6 to 12 months">6 to 12 months</option>
-                <option value="1 to 2 years">1 to 2 years</option>
-                <option value="Over 2 years">Over 2 years</option>
-              </select>
-              <p class="field__error">Select how long you have been processing.</p>
-            </div>
-          </div>
-
-          <div class="callout callout--quiet" data-soft-message hidden>
-            <p class="callout__title">Leave your details anyway</p>
-            <p>We work best with brands that already have a processing track record. Leave your details and we'll reach out when we have a fit.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="pl-volume">Average monthly card volume</label>
-            <select class="select" id="pl-volume" name="monthlyVolume" required>
-              <option value="">Select a range</option>
-              <option value="Under $25k">Under $25k</option>
-              <option value="$25k to $100k">$25k to $100k</option>
-              <option value="$100k to $500k">$100k to $500k</option>
-              <option value="Over $500k">Over $500k</option>
-            </select>
-            <p class="field__error">Select the range that fits your current volume.</p>
-          </div>
-
-          <div class="field">
-            <label class="checkbox">
-              <input type="checkbox" name="consent" value="yes" required>
-              <span>I agree that my details can be used to contact me about processing, as set out in the <a href="legal/privacy.html">privacy notice</a>.</span>
-            </label>
-            <p class="field__error">Please agree before sending your details.</p>
-          </div>
-
-          <div>
-            <button class="btn btn--primary" type="submit">Join the priority list</button>
-            <span class="trust-line">No commitment. Your details go only to our underwriting team.</span>
-          </div>
-        </form>
-
-        <div class="form-success" data-success data-for="priority-list-form" role="status" tabindex="-1" hidden>
-          <h2>You're on the list</h2>
-          <p>We'll email you when peptide onboarding opens. Want to move faster? Have your statements and certificates of analysis ready.</p>
-        </div>
+        <div data-block="lead-form"
+             data-vertical="peptides"
+             data-submit-label="Join the priority list"
+             data-trust="No commitment. Your details go only to our underwriting team."
+             data-success-title="You&#39;re on the list"
+             data-success-text="We'll be in touch when peptide onboarding opens."></div>
       </div>
     </section>
 
@@ -358,7 +226,7 @@
           </details>
           <details class="faq__item">
             <summary>Which countries will you support?</summary>
-            <div class="faq__body"><p>The United States and Canada first, with other countries on review.</p></div>
+            <div class="faq__body"><p>Brands in the United States, Canada, the UK, the EU, Australia and other supported regions. <span class="ph-text">[CONFIRM: supported countries]</span></p></div>
           </details>
         </div>
       </div>

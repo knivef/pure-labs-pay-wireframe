@@ -14,14 +14,15 @@ These leave a visible gap on the page, or the site cannot legally go live withou
 
 | Placeholder | Where | What's needed | Status |
 |---|---|---|---|
-| [PLACEHOLDER: domain] | 72 places in 14 files: every canonical, Open Graph and Twitter tag, the footer and apply and contact addresses, sitemap.xml, robots.txt, llms.txt, SITE_BASE in js/main.js | The live domain. Replace every occurrence together, then re-run the link check. | Open |
+| [PLACEHOLDER: domain] | 74 places in 16 files: every canonical, Open Graph and Twitter tag, the footer and apply and contact addresses, sitemap.xml, robots.txt, llms.txt, SITE_BASE in js/main.js | The live domain. Replace every occurrence together, then re-run the link check. | Open |
 | [PLACEHOLDER: legal entity name] | Footer disclosure and copyright, every page | The registered entity the brand belongs to. | Open |
 | [PLACEHOLDER: partner acquiring bank or processor] | Footer disclosure, every page | The entity that provides the processing. The only place on the site where a partner is named. | Open |
 | [PLACEHOLDER: registration details] | Footer disclosure, every page | The registration wording that sits with the processing partner, from the partner or counsel. | Open |
 | [PLACEHOLDER: supplied by legal] | legal/terms, legal/privacy, legal/acceptable-use, legal/restricted-regions | The wording for all four legal pages. Nothing is drafted, because legal copy is not ours to invent. | Open |
 | [PLACEHOLDER: date] | The four legal pages | Last updated dates, set when the copy lands. | Open |
 | [PLACEHOLDER: full partner list] | legal/acceptable-use | The partner's own restricted product list, so this page and the partner agree. | Open |
-| [PLACEHOLDER: other supported countries] | index Markets, legal/restricted-regions | The countries outside the US and Canada that may apply for review. | Open |
+| [CONFIRM: supported countries] | index Markets, nutra FAQ, peptides FAQ, onboarding/application, CLAUDE.md | The full list of supported regions now that markets are global. The copy names the United States, Canada, the UK, the EU and Australia, with "other supported regions" standing in for the rest. | Open |
+| [PLACEHOLDER: other supported countries] | legal/restricted-regions | The same list, written out on the page merchants check before applying. Keep it in step with the CONFIRM above. | Open |
 | [PLACEHOLDER: target month or "soon"] | peptides hero | When peptide onboarding opens. Visible under the hero call to action. | Open |
 | [PLACEHOLDER: target date] | peptides FAQ, kratom FAQ | The opening date for each category. Keep in step with the hero line, and note these answers also feed the FAQ structured data. | Open |
 | [PLACEHOLDER: supported platforms and gateways] | The shared How it works block, so home and nutra | The platforms and gateways we work with. | Open |
@@ -37,7 +38,7 @@ Decisions and sign-offs. The build has made a choice in each case, and the choic
 | [CONFIRM: telehealth and compounding model accepted by partner] | peptides, three places | Whether the licensed telehealth and compounding channel is accepted. | Open |
 | [CONFIRM: naming Stripe, PayPal, Shopify Payments and Adyen] | nutra and peptides, Problem sections | The copy states what four named companies restrict in their terms. Accurate as far as I know and common in this market, but it is a factual claim about named third parties. Counsel clears it, or it softens to "mainstream processors". | Open |
 | [CONFIRM: accepted networks] | index, Features | Which card networks to name in plain text. No logos either way. | Open |
-| [CONFIRM: settlement currencies] | index, nutra, peptides | Confirm settlement is USD and CAD, and whether anything else applies. | Open |
+| [CONFIRM: currencies, stablecoins and networks] | index, nutra, peptides, onboarding/application | Which fiat currencies we settle in, which stablecoins, and on which networks. Replaces the old USD and CAD question now that settlement is fiat or crypto. | Open |
 | [CONFIRM: accepted by partner] | nutra, Who it's for | Whether weight management products are accepted. | Open |
 | [CONFIRM: partner restricted list] | nutra, FAQ | The restricted product list the partner applies. | Open |
 | [CONFIRM: provider and age threshold by state] | kratom, What we're building | The age verification provider and the threshold per state. | Open |
@@ -73,3 +74,8 @@ Nothing here blocks a launch. Each is a visible stand-in or an off switch.
 | [CONFIRM: the word treated in two headings] | Resolved in the final pass. The home H2 reads "Tired of being the high-risk afterthought?" and the kratom card reads "Leaf brands get handled like concentrated extracts." |
 | [PLACEHOLDER: H1 and section copy] | Resolved. Every page carries its final copy from the team. |
 | [PLACEHOLDER: meta description] | Resolved. Ten unique descriptions, one per page. |
+| [CONFIRM: 25] | onboarding/application, Owners | The beneficial ownership threshold the partner applies. 25% is the common figure, hence the stand-in, but it needs confirming. | Open |
+| [CONFIRM: whether a personal guarantee is required] | onboarding/application, owner card | Whether an owner has to act as a personal guarantor, and for which merchants. | Open |
+| [CONFIRM: settlement methods offered] | onboarding/application, Settlement | Whether fiat, crypto and both are all offered, and to whom. | Open |
+| [CONFIRM: accuracy wording from counsel] | onboarding/application, Review and sign | The accuracy declaration a merchant signs. | Open |
+| [CONFIRM: verification wording from counsel] | onboarding/application, Review and sign | The consent that lets Pure Labs Pay and its partners verify what was submitted. | Open |

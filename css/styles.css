@@ -1399,7 +1399,17 @@ body[data-mode="wireframe"] .ph-text { background: #ebebeb; color: #1a1a1a; bord
 }
 
 @media (min-width: 48rem) {
-  .trust-strip__list { grid-template-columns: repeat(3, 1fr); gap: var(--spacing-32); }
+  .trust-strip__list { grid-template-columns: repeat(2, 1fr); gap: var(--spacing-24) var(--spacing-32); }
+  /* the rule sits between the pair, never at the start of a wrapped row */
+  .trust-strip__item:nth-child(even) {
+    padding-left: var(--spacing-32);
+    border-left: var(--border-width) solid var(--border);
+  }
+}
+
+@media (min-width: 64rem) {
+  .trust-strip__list { grid-template-columns: repeat(4, 1fr); }
+  .trust-strip__item:nth-child(even) { padding-left: 0; border-left: 0; }
   .trust-strip__item + .trust-strip__item {
     padding-left: var(--spacing-32);
     border-left: var(--border-width) solid var(--border);
@@ -1867,6 +1877,237 @@ body[data-mode="wireframe"] .ph-text { background: #ebebeb; color: #1a1a1a; bord
 }
 
 .link-row li { margin: 0; }
+
+
+/* ==========================================================================
+   Private onboarding pages
+   Not part of the public site. Kept here so there is still one stylesheet.
+   ========================================================================== */
+
+.app-header {
+  background: var(--surface);
+  border-bottom: var(--border-width) solid var(--border);
+  padding: var(--spacing-16) 0;
+}
+
+.app-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-12);
+}
+
+.app-footer {
+  background: var(--surface-alt);
+  border-top: var(--border-width) solid var(--border);
+  padding: var(--spacing-24) 0;
+  margin-top: var(--spacing-48);
+}
+
+.app-footer .meta-line { margin: 0; }
+
+.app-layout {
+  display: grid;
+  gap: var(--spacing-32);
+  grid-template-columns: 1fr;
+  align-items: start;
+  padding-bottom: var(--spacing-48);
+}
+
+@media (min-width: 64rem) {
+  .app-layout { grid-template-columns: 17rem minmax(0, 1fr); gap: var(--spacing-64); }
+  .app-aside { position: sticky; top: var(--spacing-24); }
+}
+
+.app-aside {
+  display: grid;
+  gap: var(--spacing-16);
+  padding: var(--card-padding);
+  background: var(--surface-alt);
+  border-radius: var(--radius-card);
+}
+
+/* the section list, desktop only. Mobile keeps the progress bar alone. */
+.app-nav { display: none; }
+
+@media (min-width: 64rem) {
+  .app-nav { display: block; }
+}
+
+.app-nav__list { list-style: none; margin: 0; padding: 0; counter-reset: none; }
+.app-nav__list li { margin: 0; }
+
+.app-nav__link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--element-gap);
+  padding: var(--spacing-8) 0;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: var(--text-control-label);
+  font-weight: var(--weight-nav);
+}
+
+.app-nav__link:hover { text-decoration: underline; }
+
+.app-nav__index {
+  font-family: var(--font-mono);
+  font-size: var(--text-technical-label);
+  color: var(--ink-faint);
+}
+
+.app-progress .progress__label { margin-bottom: var(--spacing-4); }
+
+.app-progress .progress__track {
+  height: 6px;
+  background: var(--border);
+}
+
+.app-form { gap: var(--spacing-48); }
+
+.app-section { scroll-margin-top: var(--spacing-24); }
+
+.app-section__title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-12);
+  padding-bottom: var(--spacing-12);
+  border-bottom: var(--border-width) solid var(--ink);
+  margin-bottom: var(--spacing-24);
+}
+
+.app-section__index {
+  font-family: var(--font-mono);
+  font-size: var(--text-technical-label);
+  color: var(--ink-faint);
+}
+
+.app-section__body { display: grid; gap: var(--spacing-24); }
+
+.owner-card {
+  display: grid;
+  gap: var(--spacing-16);
+  padding: var(--card-padding);
+  background: var(--surface-alt);
+  border-radius: var(--radius-card);
+}
+
+.owner-card + .owner-card { margin-top: var(--spacing-24); }
+
+.owner-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-12);
+}
+
+.owner-card__head .card__title { margin: 0; }
+
+.repeater__row {
+  display: flex;
+  align-items: center;
+  gap: var(--element-gap);
+}
+
+.repeater__row + .repeater__row { margin-top: var(--element-gap); }
+
+.percent-group { border: 0; margin: 0; padding: 0; }
+.percent-group > legend { padding: 0; font-size: var(--text-control-label); font-weight: var(--weight-control); }
+
+.percent-group__grid {
+  display: grid;
+  gap: var(--spacing-16);
+  grid-template-columns: 1fr;
+  margin: var(--spacing-12) 0 var(--spacing-8);
+}
+
+@media (min-width: 40rem) {
+  .percent-group__grid { grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
+}
+
+.percent-group__grid .field__label { display: grid; gap: var(--spacing-4); }
+
+.meta-line.is-over { color: var(--warning); font-weight: var(--font-weight-semibold); }
+
+.field.is-muted { opacity: 0.55; }
+
+/* the review summary */
+.app-summary { display: grid; gap: var(--spacing-24); }
+
+.app-summary__head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-12);
+  margin: 0 0 var(--element-gap);
+  font-weight: var(--weight-control);
+  border-bottom: var(--border-width) solid var(--border);
+  padding-bottom: var(--spacing-4);
+}
+
+.app-summary__list { margin: 0; }
+
+.app-summary__row {
+  display: grid;
+  gap: var(--spacing-4);
+  padding: var(--spacing-8) 0;
+  border-bottom: var(--border-width) solid var(--border);
+  font-size: var(--text-control-label);
+}
+
+@media (min-width: 40rem) {
+  .app-summary__row { grid-template-columns: 1fr 1fr; gap: var(--spacing-16); }
+}
+
+.app-summary__row dt { color: var(--ink-faint); }
+.app-summary__row dd { margin: 0; }
+
+/* the invite tool */
+/* a wide table scrolls inside its own box, never the page. position relative
+   matters: the visually hidden label in the header is absolutely positioned,
+   and without a positioned ancestor it anchors to the document and drags the
+   page's scroll width out past the viewport. */
+.table-scroll { overflow-x: auto; position: relative; }
+.table-scroll:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.lead-table { width: 100%; min-width: 46rem; border-collapse: collapse; font-size: var(--text-control-label); }
+
+.lead-table th,
+.lead-table td {
+  text-align: left;
+  padding: var(--spacing-12) var(--spacing-8);
+  border-bottom: var(--border-width) solid var(--border);
+  vertical-align: top;
+}
+
+.lead-table thead th {
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-medium);
+  color: var(--ink-faint);
+  border-bottom-color: var(--ink);
+}
+
+.invite-panel {
+  display: grid;
+  gap: var(--spacing-16);
+  padding: var(--card-padding);
+  background: var(--surface-alt);
+  border-radius: var(--radius-card);
+}
+
+.invite-preview {
+  margin: 0;
+  padding: var(--card-padding);
+  background: var(--surface);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  font-size: var(--text-control-label);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.invite-row { display: flex; flex-wrap: wrap; gap: var(--element-gap); align-items: center; }
+.invite-row .input { flex: 1 1 18rem; }
 
 /* ==========================================================================
    7. Annotation layer and review bar

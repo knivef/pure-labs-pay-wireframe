@@ -4,4 +4,7 @@
 User-agent: *
 Allow: /
 
+# Private onboarding pages. Never linked from a public page either.
+Disallow: /onboarding/
+
 Sitemap: https://[PLACEHOLDER: domain]/sitemap.xml

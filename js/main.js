@@ -14,6 +14,7 @@
    7. The floating review bar
    8. Forms: validation, conditional fields, the soft message and the payload
    9. Structured data: Organization, Service, FAQPage and BreadcrumbList
+  10. Private onboarding pages: the application and the invite tool
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -31,10 +32,29 @@ var CONFIG = {
 
   showTestimonials: false,
 
+  /* Each supported country carries the labels that change with it, so the
+     private application reads correctly outside the United States.
+     [CONFIRM: supported countries] */
   supportedCountries: [
-    { code: 'US', label: 'United States' },
-    { code: 'CA', label: 'Canada' }
+    { code: 'US', label: 'United States', region: 'State', postcode: 'ZIP code', taxId: 'EIN', personalId: 'SSN', bankCode: 'Routing number' },
+    { code: 'CA', label: 'Canada', region: 'Province', postcode: 'Postal code', taxId: 'Business Number', personalId: 'SIN', bankCode: 'Transit and institution number' },
+    { code: 'GB', label: 'United Kingdom', region: 'Region', postcode: 'Postcode', taxId: 'Company number', personalId: 'National Insurance number', bankCode: 'Sort code' },
+    { code: 'AU', label: 'Australia', region: 'State or territory', postcode: 'Postcode', taxId: 'ABN', personalId: 'National ID', bankCode: 'BSB' },
+    { code: 'EU', label: 'European Union', region: 'Region', postcode: 'Postal code', taxId: 'VAT number', personalId: 'National ID', bankCode: 'SWIFT or BIC' },
+    { code: 'OTHER', label: 'Other supported region', region: 'State or region', postcode: 'Postal code', taxId: 'Business tax ID', personalId: 'National ID', bankCode: 'SWIFT or BIC' }
   ],
+
+  /* The lead the private application prefills from. In production these five
+     values arrive with the invite, keyed by the ref. */
+  DEMO_LEAD: {
+    leadId: 'PL-4FFT5U',
+    name: 'Dana Okafor',
+    email: 'dana@northline.co',
+    website: 'northline.co',
+    lookingFor: 'Better terms than my current setup',
+    volumeBand: '$100k to $500k',
+    vertical: 'nutra'
+  },
 
   /* Two letter codes for the states we will not support kratom merchants in.
      Read by the kratom priority list form, which gates on the merchant's own
@@ -409,7 +429,7 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
                 '<span class="brand__mark" aria-hidden="true">PL</span>' +
                 '<span class="brand__name" data-brand>' + BRAND_NAME_IN_MARKUP + '</span>' +
               '</a>' +
-              '<p class="site-footer__about"><span data-brand>' + BRAND_NAME_IN_MARKUP + '</span> provides card processing for nutra, peptide and kratom brands in the United States and Canada, through partner acquiring banks.</p>' +
+              '<p class="site-footer__about"><span data-brand>' + BRAND_NAME_IN_MARKUP + '</span> provides card processing for nutra, peptide and kratom brands worldwide, with settlement in fiat or crypto, through partner acquiring banks and payment partners.</p>' +
               '<div class="footer-contact" data-note="Intent: a person to write to, not a form. | Dev: plain selectable text rather than mailto links, because the domain is still a placeholder. Swap to mailto when the domain lands.">' +
                 '<p class="footer-contact__label">Contact</p>' +
                 '<p class="footer-contact__email">underwriting@<span class="ph-text">[PLACEHOLDER: domain]</span></p>' +
@@ -459,15 +479,15 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
      category page, so the steps are defined once. A page overrides the
      heading with data-heading on the mount point. */
   function howItWorksMarkup(mount) {
-    var heading = mount.getAttribute('data-heading') || 'From statements to processing in three steps';
+    var heading = mount.getAttribute('data-heading') || 'Getting started is simple';
     return '' +
-      '<section class="section section--bordered" id="how-it-works" data-note="Intent: three steps, and step one is the statements, which is how the history requirement is signalled without ever being stated. | SEO: anchor target for the How it works link in the header and the footer. | Dev: block rendered from js/main.js, used on the home page and on category pages. Horizontal on desktop, stacked on mobile. Override the heading with data-heading. The platform list stays a placeholder until the team confirms it.">' +
+      '<section class="section section--bordered" id="how-it-works" data-note="Intent: three steps that stay on the lead first side of Rule B. No documents, no paperwork, nothing that implies a long application. | SEO: anchor target for the How it works link in the header and the footer. | Dev: block rendered from js/main.js, used on the home page and on category pages. Horizontal on desktop, stacked on mobile. Override the heading with data-heading. The platform list stays a placeholder until the team confirms it.">' +
         '<div class="container">' +
           '<h2>' + heading + '</h2>' +
           '<ol class="steps steps--row">' +
-            step('Share your recent processing statements', 'Tell us about your business and upload your last few months of statements.') +
-            step('Get your custom rate', 'Our underwriting team reviews your history and comes back with terms built for you.') +
-            step('Switch and start processing', 'We help you connect your store and plan the move from your current processor.') +
+            step('Tell us what you\'re looking for', 'A few quick details. It takes about a minute.') +
+            step('Talk to our team', 'We get to know your business and find the right setup for you.') +
+            step('Go live', 'You get your custom rate in writing and we help you get set up.') +
           '</ol>' +
           '<p class="meta-line mt-5">Works with <span class="ph-text">[PLACEHOLDER: supported platforms and gateways]</span>.</p>' +
         '</div>' +
@@ -520,13 +540,199 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
       '</div>';
   }
 
+  /* Shared lead form, Rule B stage one.
+     Five fields and a consent box, one column, all required. No qualifying
+     questions, no conditional messages: the team qualifies internally and
+     sends the private application afterwards.
+
+     A page mounts it with
+       <div data-block="lead-form"
+            data-vertical="peptides"          the category, set silently
+            data-submit-label="..."           button text
+            data-trust="..."                  the trust line
+            data-success-title="..."
+            data-success-text="..."></div>
+     On the apply page the vertical is left out and read from ?vertical=
+     instead, and a category that is not open yet switches source to waitlist
+     and shows the priority list note. */
+
+  var LEAD_LOOKING_FOR = [
+    'A new payment processor',
+    'A backup processor',
+    'Better terms than my current setup',
+    'Fiat or crypto settlement',
+    'Something else'
+  ];
+
+  var LEAD_VOLUME_BANDS = [
+    'Under $25k',
+    '$25k to $100k',
+    '$100k to $500k',
+    '$500k to $1M',
+    'Over $1M'
+  ];
+
+  var WAITLIST_VERTICALS = ['peptides', 'kratom'];
+
+  function leadVertical(mount) {
+    var fixed = (mount.getAttribute('data-vertical') || '').toLowerCase();
+    if (fixed) { return fixed; }
+    return (params().get('vertical') || '').toLowerCase();
+  }
+
+  function leadOptions(values) {
+    var out = '';
+    var i;
+    for (i = 0; i < values.length; i++) {
+      out += '<option value="' + values[i] + '">' + values[i] + '</option>';
+    }
+    return out;
+  }
+
+  /* PL plus six characters, no look-alikes, so a lead can be read down a
+     phone line without confusion. */
+  function newLeadId() {
+    var alphabet = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+    var out = '';
+    var i;
+    for (i = 0; i < 6; i++) {
+      out += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+    }
+    return 'PL-' + out;
+  }
+
+  function leadFormMarkup(mount) {
+    var p = prefix();
+    var vertical = leadVertical(mount);
+    var waitlist = WAITLIST_VERTICALS.indexOf(vertical) > -1;
+    var source = mount.getAttribute('data-source') || (waitlist ? 'waitlist' : 'apply');
+    var label = mount.getAttribute('data-submit-label') || 'Get my custom rate';
+    var trust = mount.getAttribute('data-trust') || 'Your details go only to our underwriting team.';
+    var successTitle = mount.getAttribute('data-success-title') || 'Thanks, we\'ve got your details';
+    var successText = mount.getAttribute('data-success-text') || 'Our team will be in touch.';
+    var note = '';
+
+    /* Only on the apply page, where the category arrives in the URL rather
+       than from the page itself. */
+    if (waitlist && !mount.getAttribute('data-vertical')) {
+      note =
+        '<p class="callout callout--quiet lead-form__note">' +
+          'Processing for this category opens soon. You\'ll join the priority list.' +
+        '</p>';
+    }
+
+    return '' +
+      note +
+      '<form class="form form--lead" id="lead-form" data-form="lead" data-vertical="' + vertical + '" data-source="' + source + '" novalidate data-note-outside data-note="Intent: capture the lead, nothing else. Five fields and a consent box, one column, every one required. | Dev: the shared lead form from js/main.js, used on apply, peptides and kratom. No qualifying questions and no conditional logic: the team qualifies internally, then sends the private application. The category is set from the page or ?vertical=, never asked. Nothing posts while CONFIG.FORM_ENDPOINT is empty.">' +
+
+        '<div class="field">' +
+          '<label class="field__label" for="lead-name">Full name</label>' +
+          '<input class="input" type="text" id="lead-name" name="name" autocomplete="name" required>' +
+          '<p class="field__error">Enter your full name.</p>' +
+        '</div>' +
+
+        '<div class="field">' +
+          '<label class="field__label" for="lead-email">Work email</label>' +
+          '<input class="input" type="email" id="lead-email" name="email" autocomplete="email" required>' +
+          '<p class="field__error">Enter an email address we can reply to.</p>' +
+        '</div>' +
+
+        '<div class="field">' +
+          '<label class="field__label" for="lead-website">Company website</label>' +
+          '<input class="input" type="text" inputmode="url" id="lead-website" name="website" placeholder="yourstore.com" required>' +
+          '<p class="field__error">Enter the website where you sell.</p>' +
+        '</div>' +
+
+        '<div class="field">' +
+          '<label class="field__label" for="lead-looking">What are you looking for?</label>' +
+          '<select class="select" id="lead-looking" name="lookingFor" required>' +
+            '<option value="">Select an option</option>' +
+            leadOptions(LEAD_LOOKING_FOR) +
+          '</select>' +
+          '<p class="field__error">Tell us what you need, so we route you to the right person.</p>' +
+        '</div>' +
+
+        '<div class="field">' +
+          '<label class="field__label" for="lead-volume">Monthly volume</label>' +
+          '<select class="select" id="lead-volume" name="volumeBand" required>' +
+            '<option value="">Select a range</option>' +
+            leadOptions(LEAD_VOLUME_BANDS) +
+          '</select>' +
+          '<p class="field__error">Select the range that fits your business.</p>' +
+        '</div>' +
+
+        '<div class="field">' +
+          '<label class="checkbox">' +
+            '<input type="checkbox" name="consent" value="yes" required>' +
+            '<span>I agree to the <a href="' + p + 'legal/privacy.html">privacy policy</a> and to be contacted about my application.</span>' +
+          '</label>' +
+          '<p class="field__error">Please agree before sending your details.</p>' +
+        '</div>' +
+
+        '<div>' +
+          '<button class="btn btn--primary" type="submit" data-label="' + label + '">' + label + '</button>' +
+          '<span class="trust-line">' + trust + '</span>' +
+        '</div>' +
+      '</form>' +
+
+      '<div class="form-success" data-success data-for="lead-form" role="status" tabindex="-1" hidden>' +
+        '<h2>' + successTitle + '</h2>' +
+        '<p>' + successText + '</p>' +
+      '</div>';
+  }
+
+  /* The lead payload is flat and fixed, so the team can map it to a CRM
+     without reading the markup. */
+  function buildLeadPayload(form) {
+    var value = function (name) {
+      var el = form.elements[name];
+      return el ? (el.value || '').trim() : '';
+    };
+    var email = value('email').toLowerCase();
+    var domain = email.indexOf('@') > -1 ? email.split('@')[1] : '';
+
+    return {
+      name: value('name'),
+      email: value('email'),
+      emailType: CONFIG.freemailDomains.indexOf(domain) > -1 ? 'freemail' : 'business',
+      website: value('website'),
+      lookingFor: value('lookingFor'),
+      volumeBand: value('volumeBand'),
+      vertical: form.getAttribute('data-vertical') || '',
+      source: form.getAttribute('data-source') || 'apply',
+      page: window.location.pathname,
+      utm: utmParameters(),
+      submittedAt: new Date().toISOString(),
+      leadId: newLeadId()
+    };
+  }
+
+  /* The submitting state. There is no endpoint yet, so the button holds for a
+     moment to show the state the team has to build. */
+  function sendLead(form) {
+    var button = form.querySelector('button[type="submit"]');
+    if (button) {
+      button.disabled = true;
+      button.setAttribute('aria-busy', 'true');
+      button.textContent = 'Sending';
+    }
+    window.setTimeout(function () {
+      if (button) {
+        button.disabled = false;
+        button.removeAttribute('aria-busy');
+        button.textContent = button.getAttribute('data-label') || 'Send';
+      }
+      showSuccess(form);
+    }, 450);
+  }
+
   /* Reusable closing call to action. A page overrides the heading and the body
      with data-heading and data-text on the mount point. */
   function finalCtaMarkup(mount) {
     var p = prefix();
     var heading = mount.getAttribute('data-heading') || 'Find out what your rate looks like';
     var text = mount.getAttribute('data-text') ||
-      'Send us your details and recent statements. Our underwriting team will come back with a custom rate.';
+      'Tell us what you\'re looking for. Our team will take it from there.';
     /* A coming soon page swaps the primary action for its own waitlist, per
        the rollout priority in CLAUDE.md. Get my custom rate still sits in the
        header and the footer on every page. */
@@ -551,7 +757,8 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
     var icons = {
       underwriting: '<path d="M4 3h10l4 4v14H4z"/><path d="M14 3v4h4"/><path d="M8 13l2.5 2.5L15 11"/>',
       shield: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9.5 12l1.8 1.8L15 10"/>',
-      markets: '<path d="M3 12h18"/><path d="M8 7h8"/><path d="M8 17h8"/><circle cx="8" cy="7" r="1.6"/><circle cx="16" cy="17" r="1.6"/>'
+      settlement: '<path d="M4 9h13l-3-3"/><path d="M20 15H7l3 3"/>',
+      worldwide: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.8 5.6 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>'
     };
     function item(icon, label) {
       return '' +
@@ -561,12 +768,13 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
         '</li>';
     }
     return '' +
-      '<section class="trust-strip" data-note="Intent: three plain statements, placed under a hero or above a form, to steady a merchant who has been shut down before. | SEO: no keyword target. | Dev: block rendered from js/main.js. Text only with line icons, no logos, no numbers, nothing that needs a source.">' +
+      '<section class="trust-strip" data-note="Intent: four plain lines, placed under a hero or above a form, to steady a merchant who has been shut down before. | SEO: no keyword target. | Dev: block rendered from js/main.js. Text only with line icons, no logos, no numbers, nothing that needs a source.">' +
         '<div class="container">' +
           '<ul class="trust-strip__list">' +
             item(icons.underwriting, 'Underwriting built for your category') +
             item(icons.shield, 'Dispute and fraud tools included') +
-            item(icons.markets, 'US and Canada merchants') +
+            item(icons.settlement, 'Fiat and crypto settlement') +
+            item(icons.worldwide, 'Merchants worldwide') +
           '</ul>' +
         '</div>' +
       '</section>';
@@ -1211,6 +1419,12 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
           if (event.target && event.target.name) { clearError(event.target); }
         });
 
+        /* The private application has its own submit handler in section 10,
+           with a redacted payload and its own extra checks. Without this guard
+           both handlers would run, and the second would read a form the first
+           had already hidden. */
+        if (form.getAttribute('data-form') === 'application') { return; }
+
         form.addEventListener('submit', function (event) {
           event.preventDefault();
           var firstInvalid = steps ? steps.validateAll() : validate(form);
@@ -1227,7 +1441,8 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
             }
           }
 
-          var payload = buildPayload(form);
+          var isLead = form.getAttribute('data-form') === 'lead';
+          var payload = isLead ? buildLeadPayload(form) : buildPayload(form);
 
           /* FORM_ENDPOINT is empty on purpose. The team wires the POST here,
              and nothing leaves the page until they do. */
@@ -1236,7 +1451,7 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
             console.log(JSON.stringify(payload, null, 2));
           }
 
-          showSuccess(form);
+          if (isLead) { sendLead(form); } else { showSuccess(form); }
         });
       }(forms[i]));
     }
@@ -1373,6 +1588,8 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
   }
 
   function renderStructuredData() {
+    /* A private page is noindex and nofollow, so it carries no structured data. */
+    if (document.body.hasAttribute('data-private')) { return; }
     var nodes = [organizationNode(), serviceNode(), faqNode(), breadcrumbNode()];
     var graph = [];
     var i;
@@ -1389,6 +1606,584 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
        of the script element */
     script.textContent = JSON.stringify(payload, null, 2);
     document.head.appendChild(script);
+  }
+
+  /* ------------------------------------------------------------------------
+     10. Private onboarding pages
+     /onboarding/application.html and /onboarding/invite.html. Never linked
+     from a public page. The application opens only with a ref in the URL, and
+     the masked fields never reach a draft or a log.
+     ------------------------------------------------------------------------ */
+
+  var REF_PATTERN = /^PL-[A-Z0-9]{6}$/i;
+  var DRAFT_PREFIX = 'plp.application.';
+
+  function countryByCode(code) {
+    var list = CONFIG.supportedCountries || [];
+    var i;
+    for (i = 0; i < list.length; i++) {
+      if (list[i].code === code) { return list[i]; }
+    }
+    return null;
+  }
+
+  function fillCountrySelect(select, firstLabel) {
+    if (!select || select.options.length > 1) { return; }
+    var list = CONFIG.supportedCountries || [];
+    var i;
+    select.innerHTML = '<option value="">' + (firstLabel || 'Select a country') + '</option>';
+    for (i = 0; i < list.length; i++) {
+      select.innerHTML += '<option value="' + list[i].code + '">' + list[i].label + '</option>';
+    }
+  }
+
+  /* Swap the labels that change with the country. Scope is the form for the
+     business country, or a single owner card for an owner's country. */
+  function applyCountryLabels(scope, code, keys) {
+    var country = countryByCode(code);
+    var i;
+    for (i = 0; i < keys.length; i++) {
+      var slot = scope.querySelector('[data-label="' + keys[i] + '"]');
+      if (slot) {
+        slot.textContent = country ? country[keys[i]] : slot.getAttribute('data-label-default') || slot.textContent;
+      }
+    }
+  }
+
+  /* ---------------------------------------------------- owners and repeaters */
+
+  var ownerCount = 0;
+
+  function ownerCardMarkup(index) {
+    var n = index;
+    var id = function (name) { return 'owner-' + n + '-' + name; };
+    return '' +
+      '<div class="owner-card" data-owner>' +
+        '<div class="owner-card__head">' +
+          '<h3 class="card__title">Owner ' + n + '</h3>' +
+          '<button class="btn btn--ghost btn--compact" type="button" data-owner-remove>Remove</button>' +
+        '</div>' +
+
+        '<div class="field">' +
+          '<label class="field__label" for="' + id('role') + '">Role</label>' +
+          '<select class="select" id="' + id('role') + '" name="owners[' + n + '][role]" required>' +
+            '<option value="">Select a role</option>' +
+            '<option value="Owner">Owner</option>' +
+            '<option value="Officer or director">Officer or director</option>' +
+            '<option value="Controls the business day to day">Controls the business day to day</option>' +
+          '</select>' +
+          '<p class="field__error">Select this person\'s role.</p>' +
+        '</div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('first') + '">First name</label>' +
+          '<input class="input" type="text" id="' + id('first') + '" name="owners[' + n + '][firstName]" required>' +
+          '<p class="field__error">Enter their first name.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('last') + '">Last name</label>' +
+          '<input class="input" type="text" id="' + id('last') + '" name="owners[' + n + '][lastName]" required>' +
+          '<p class="field__error">Enter their last name.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('country') + '">Home country</label>' +
+          '<select class="select" id="' + id('country') + '" name="owners[' + n + '][country]" required data-owner-country>' +
+            '<option value="">Select a country</option>' +
+          '</select>' +
+          '<p class="field__error">Select their home country.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('street') + '">Home address</label>' +
+          '<input class="input" type="text" id="' + id('street') + '" name="owners[' + n + '][street]" required>' +
+          '<p class="field__error">Enter their home address.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('city') + '">City</label>' +
+          '<input class="input" type="text" id="' + id('city') + '" name="owners[' + n + '][city]" required>' +
+          '<p class="field__error">Enter the city.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('region') + '"><span data-label="region">State or region</span></label>' +
+          '<input class="input" type="text" id="' + id('region') + '" name="owners[' + n + '][region]" required>' +
+          '<p class="field__error">Enter the state, province or region.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('postcode') + '"><span data-label="postcode">Postal code</span></label>' +
+          '<input class="input" type="text" id="' + id('postcode') + '" name="owners[' + n + '][postcode]" required>' +
+          '<p class="field__error">Enter the postal code.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('dob') + '">Date of birth</label>' +
+          '<input class="input" type="date" id="' + id('dob') + '" name="owners[' + n + '][dateOfBirth]" required data-sensitive>' +
+          '<p class="field__hint">Never saved in a draft and never logged by this wireframe.</p>' +
+          '<p class="field__error">Enter their date of birth.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('pid') + '"><span data-label="personalId">National ID</span></label>' +
+          '<input class="input" type="password" id="' + id('pid') + '" name="owners[' + n + '][personalId]" autocomplete="off" required data-sensitive>' +
+          '<p class="field__hint">Masked.</p>' +
+          '<p class="field__error">Enter their national ID number.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('idtype') + '">ID document type</label>' +
+          '<select class="select" id="' + id('idtype') + '" name="owners[' + n + '][idType]" required>' +
+            '<option value="">Select a document</option>' +
+            '<option value="Passport">Passport</option>' +
+            '<option value="Driving licence">Driving licence</option>' +
+            '<option value="National ID card">National ID card</option>' +
+          '</select>' +
+          '<p class="field__error">Select the document you will send.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('idnum') + '">ID document number</label>' +
+          '<input class="input" type="password" id="' + id('idnum') + '" name="owners[' + n + '][idNumber]" autocomplete="off" required data-sensitive>' +
+          '<p class="field__hint">Masked.</p>' +
+          '<p class="field__error">Enter the document number.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('share') + '">Ownership</label>' +
+          '<input class="input" type="number" id="' + id('share') + '" name="owners[' + n + '][ownership]" min="0" max="100" required data-owner-share>' +
+          '<p class="field__hint">A percentage.</p>' +
+          '<p class="field__error">Enter a number between 0 and 100.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('email') + '">Email</label>' +
+          '<input class="input" type="email" id="' + id('email') + '" name="owners[' + n + '][email]" required>' +
+          '<p class="field__error">Enter an email address for this person.</p></div>' +
+
+        '<div class="field"><label class="field__label" for="' + id('phone') + '">Phone</label>' +
+          '<input class="input" type="tel" id="' + id('phone') + '" name="owners[' + n + '][phone]" required>' +
+          '<p class="field__error">Enter a phone number for this person.</p></div>' +
+
+        '<div class="field">' +
+          '<label class="checkbox"><input type="checkbox" name="owners[' + n + '][guarantor]" value="yes"><span>This person will act as a personal guarantor. <span class="ph-text">[CONFIRM: whether a personal guarantee is required]</span></span></label>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function addOwner(list) {
+    ownerCount = ownerCount + 1;
+    list.insertAdjacentHTML('beforeend', ownerCardMarkup(ownerCount));
+    var card = list.lastElementChild;
+    var select = card.querySelector('[data-owner-country]');
+    fillCountrySelect(select);
+    select.addEventListener('change', function () {
+      applyCountryLabels(card, select.value, ['region', 'postcode', 'personalId']);
+    });
+    return card;
+  }
+
+  function updateOwnerTotal(form) {
+    var slot = form.querySelector('[data-owner-total]');
+    if (!slot) { return; }
+    var shares = form.querySelectorAll('[data-owner-share]');
+    var total = 0;
+    var i;
+    for (i = 0; i < shares.length; i++) {
+      total += parseFloat(shares[i].value || 0) || 0;
+    }
+    slot.textContent = 'Ownership listed: ' + total + '%';
+    slot.classList.toggle('is-over', total > 100);
+  }
+
+  function setupRepeaters(form) {
+    var groups = form.querySelectorAll('[data-repeater]');
+    var i;
+    for (i = 0; i < groups.length; i++) {
+      (function (group) {
+        var list = group.querySelector('[data-repeater-list]');
+        var add = group.querySelector('[data-repeater-add]');
+        if (!list || !add) { return; }
+        add.addEventListener('click', function () {
+          var row = list.firstElementChild.cloneNode(true);
+          var input = row.querySelector('input');
+          input.value = '';
+          input.removeAttribute('id');
+          row.insertAdjacentHTML('beforeend', '<button class="btn btn--ghost btn--compact" type="button" data-repeater-remove>Remove</button>');
+          list.appendChild(row);
+        });
+        list.addEventListener('click', function (event) {
+          var remove = event.target.closest ? event.target.closest('[data-repeater-remove]') : null;
+          if (remove) { remove.parentElement.remove(); }
+        });
+      }(groups[i]));
+    }
+  }
+
+  /* ----------------------------------------------------------- percentages */
+
+  function percentTotals(form) {
+    var groups = form.querySelectorAll('[data-percent-group]');
+    var worst = null;
+    var i, j;
+    for (i = 0; i < groups.length; i++) {
+      var name = groups[i].getAttribute('data-percent-group');
+      var inputs = groups[i].querySelectorAll('[data-percent]');
+      var total = 0;
+      for (j = 0; j < inputs.length; j++) { total += parseFloat(inputs[j].value || 0) || 0; }
+      var slot = form.querySelector('[data-percent-total="' + name + '"]');
+      if (slot) {
+        slot.textContent = 'Total: ' + total;
+        slot.classList.toggle('is-over', total !== 100 && total !== 0);
+      }
+      groups[i].classList.toggle('is-invalid', total !== 100);
+      if (total !== 100 && !worst) { worst = inputs[0]; }
+    }
+    return worst;
+  }
+
+  /* ------------------------------------------------- settlement validation */
+
+  function ibanValid(value) {
+    var v = String(value).replace(/\s+/g, '').toUpperCase();
+    if (!/^[A-Z]{2}[0-9]{2}[A-Z0-9]{10,30}$/.test(v)) { return false; }
+    var moved = v.slice(4) + v.slice(0, 4);
+    var digits = '';
+    var i;
+    for (i = 0; i < moved.length; i++) {
+      var c = moved.charAt(i);
+      digits += /[0-9]/.test(c) ? c : String(c.charCodeAt(0) - 55);
+    }
+    /* mod 97 in chunks, because the number is longer than a float can hold */
+    var remainder = 0;
+    for (i = 0; i < digits.length; i += 7) {
+      remainder = parseInt(String(remainder) + digits.substr(i, 7), 10) % 97;
+    }
+    return remainder === 1;
+  }
+
+  var WALLET_PATTERNS = {
+    Ethereum: /^0x[a-fA-F0-9]{40}$/,
+    Base: /^0x[a-fA-F0-9]{40}$/,
+    Polygon: /^0x[a-fA-F0-9]{40}$/,
+    Arbitrum: /^0x[a-fA-F0-9]{40}$/,
+    Solana: /^[1-9A-HJ-NP-Za-km-z]{32,44}$/,
+    Tron: /^T[1-9A-HJ-NP-Za-km-z]{33}$/
+  };
+
+  /* Checks the application cannot express in markup alone. Returns the first
+     control to fix, or null. */
+  function applicationExtras(form) {
+    var first = null;
+    var fail = function (el) { if (el && !first) { first = el; } markError(el); };
+
+    var pct = percentTotals(form);
+    if (pct) { fail(pct); }
+
+    var pairs = [['accountNumber', 'accountNumberConfirm'], ['walletAddress', 'walletAddressConfirm']];
+    var i;
+    for (i = 0; i < pairs.length; i++) {
+      var a = form.elements[pairs[i][0]];
+      var b = form.elements[pairs[i][1]];
+      if (!a || !b || isInactive(a)) { continue; }
+      if ((a.value || '').trim() && (a.value || '').trim() !== (b.value || '').trim()) { fail(b); }
+    }
+
+    var account = form.elements.accountNumber;
+    var bankCountry = form.elements.bankCountry;
+    var bankCode = form.elements.bankCode;
+    if (account && !isInactive(account) && (account.value || '').trim()) {
+      var raw = account.value.replace(/\s+/g, '');
+      if (/^[A-Z]{2}[0-9]{2}/i.test(raw) && !ibanValid(raw)) { fail(account); }
+    }
+    if (bankCode && !isInactive(bankCode) && bankCountry && bankCountry.value === 'US') {
+      if (!/^[0-9]{9}$/.test((bankCode.value || '').replace(/\s+/g, ''))) { fail(bankCode); }
+    }
+
+    var wallet = form.elements.walletAddress;
+    var network = form.elements.network;
+    if (wallet && !isInactive(wallet) && (wallet.value || '').trim() && network && network.value) {
+      var pattern = WALLET_PATTERNS[network.value];
+      if (pattern && !pattern.test(wallet.value.trim())) { fail(wallet); }
+    }
+
+    return first;
+  }
+
+  /* ------------------------------------------------- progress, draft, review */
+
+  function applicationProgress(form) {
+    var controls = form.querySelectorAll('input[required], select[required], textarea[required]');
+    var total = 0, done = 0;
+    var i;
+    for (i = 0; i < controls.length; i++) {
+      if (isInactive(controls[i])) { continue; }
+      total++;
+      var c = controls[i];
+      if (c.type === 'checkbox' || c.type === 'radio') {
+        if (groupValue(form, c.name) || c.checked) { done++; }
+      } else if ((c.value || '').trim()) {
+        done++;
+      }
+    }
+    var percent = total ? Math.round((done / total) * 100) : 0;
+    var label = form.ownerDocument.querySelector('[data-progress-label]');
+    var fill = form.ownerDocument.querySelector('[data-progress-fill]');
+    if (label) { label.textContent = percent + '% complete'; }
+    if (fill) { fill.style.width = percent + '%'; }
+    return percent;
+  }
+
+  /* A draft holds the answers someone would hate to retype, and never a masked
+     field, a date of birth or a file. */
+  function draftKey(ref) { return DRAFT_PREFIX + ref; }
+
+  function saveDraft(form, ref) {
+    var data = {};
+    var controls = form.querySelectorAll('input, select, textarea');
+    var i;
+    for (i = 0; i < controls.length; i++) {
+      var c = controls[i];
+      if (!c.name || c.hasAttribute('data-sensitive') || c.type === 'file' || c.type === 'password') { continue; }
+      if (c.type === 'checkbox') { data[c.name] = c.checked; }
+      else if (c.type === 'radio') { if (c.checked) { data[c.name] = c.value; } }
+      else { data[c.name] = c.value; }
+    }
+    storeSet(draftKey(ref), JSON.stringify({ savedAt: new Date().toISOString(), fields: data }));
+    return Object.keys(data).length;
+  }
+
+  function restoreDraft(form, ref) {
+    var raw = storeGet(draftKey(ref));
+    if (!raw) { return null; }
+    var parsed = null;
+    try { parsed = JSON.parse(raw); } catch (err) { return null; }
+    if (!parsed || !parsed.fields) { return null; }
+    var name;
+    for (name in parsed.fields) {
+      if (!Object.prototype.hasOwnProperty.call(parsed.fields, name)) { continue; }
+      var node = form.elements[name];
+      if (!node) { continue; }
+      var value = parsed.fields[name];
+      if (node.length && node[0] && node[0].type === 'radio') { node.value = value; }
+      else if (node.type === 'checkbox') { node.checked = !!value; }
+      else { node.value = value; }
+    }
+    return parsed.savedAt;
+  }
+
+  function buildSummary(form) {
+    var box = form.querySelector('[data-summary]');
+    if (!box) { return; }
+    var sections = form.querySelectorAll('[data-app-section]');
+    var html = '';
+    var i, j;
+    for (i = 0; i < sections.length - 1; i++) {
+      var id = sections[i].getAttribute('data-app-section');
+      var title = sections[i].querySelector('.app-section__title').textContent.replace(/^[0-9]+/, '').trim();
+      var rows = '';
+      var controls = sections[i].querySelectorAll('input, select, textarea');
+      for (j = 0; j < controls.length; j++) {
+        var c = controls[j];
+        if (!c.name || isInactive(c)) { continue; }
+        if (c.type === 'radio' && !c.checked) { continue; }
+        var label = '';
+        var wrap = c.closest('.field') || c.closest('fieldset');
+        if (wrap) {
+          var lab = wrap.querySelector('.field__label, legend');
+          if (lab) { label = lab.textContent.trim(); }
+        }
+        var value = c.hasAttribute('data-sensitive') || c.type === 'password' ? 'Provided, masked'
+          : c.type === 'checkbox' ? (c.checked ? 'Yes' : 'No')
+          : c.type === 'file' ? (c.files.length + ' file(s)')
+          : (c.value || '').trim();
+        if (!value) { continue; }
+        rows += '<div class="app-summary__row"><dt>' + label + '</dt><dd>' + value + '</dd></div>';
+      }
+      html += '<div class="app-summary__block">' +
+        '<p class="app-summary__head">' + title +
+        ' <a href="#' + id + '">Edit</a></p>' +
+        (rows ? '<dl class="app-summary__list">' + rows + '</dl>' : '<p class="meta-line">Nothing filled in yet.</p>') +
+        '</div>';
+    }
+    box.innerHTML = html;
+  }
+
+  /* The payload a production endpoint would receive, with every masked field
+     replaced before it is logged. Flags carry only what underwriting sorts on. */
+  function buildApplicationPayload(form, ref) {
+    var fields = {};
+    var controls = form.querySelectorAll('input, select, textarea');
+    var i;
+    for (i = 0; i < controls.length; i++) {
+      var c = controls[i];
+      if (!c.name || isInactive(c)) { continue; }
+      if (c.hasAttribute('data-sensitive') || c.type === 'password') { fields[c.name] = '[redacted]'; continue; }
+      if (c.type === 'file') { fields[c.name] = c.files.length ? c.files.length + ' file(s)' : ''; continue; }
+      if (c.type === 'radio') { if (c.checked) { fields[c.name] = c.value; } continue; }
+      if (c.type === 'checkbox') { fields[c.name] = c.checked; continue; }
+      fields[c.name] = (c.value || '').trim();
+    }
+    return {
+      source: 'application',
+      ref: ref,
+      submittedAt: new Date().toISOString(),
+      flags: {
+        priorTermination: groupValue(form, 'priorTermination') === 'yes',
+        noHistory: groupValue(form, 'currentlyProcessing') === 'no'
+      },
+      fields: fields
+    };
+  }
+
+  /* ------------------------------------------------------------- the page */
+
+  function setupApplication() {
+    var gate = document.querySelector('[data-private-gate]');
+    var app = document.querySelector('[data-private-app]');
+    if (!gate || !app) { return; }
+
+    var ref = (params().get('ref') || '').toUpperCase();
+    if (!REF_PATTERN.test(ref)) {
+      gate.hidden = false;
+      return;
+    }
+    app.hidden = false;
+
+    var label = document.querySelector('[data-ref-label]');
+    if (label) { label.textContent = 'Application ' + ref; }
+
+    var form = document.getElementById('application-form');
+    if (!form) { return; }
+
+    /* countries, and the labels that follow from them */
+    var countrySelect = form.querySelector('[data-country-select]');
+    var bankCountry = form.querySelector('[data-bank-country]');
+    fillCountrySelect(countrySelect);
+    fillCountrySelect(bankCountry);
+    if (countrySelect) {
+      countrySelect.addEventListener('change', function () {
+        applyCountryLabels(form, countrySelect.value, ['region', 'postcode', 'taxId']);
+      });
+    }
+    if (bankCountry) {
+      bankCountry.addEventListener('change', function () {
+        applyCountryLabels(form, bankCountry.value, ['bankCode']);
+      });
+    }
+
+    /* the lead, as it arrived with the invite */
+    var lead = CONFIG.DEMO_LEAD || {};
+    if (form.elements.legalName && !form.elements.legalName.value) { form.elements.legalName.value = lead.name ? lead.name + ' Ltd' : ''; }
+    if (form.elements.supportEmail) { form.elements.supportEmail.value = lead.email || ''; }
+    if (form.elements['websites[]']) {
+      var first = form.querySelectorAll('input[name="websites[]"]')[0];
+      if (first) { first.value = lead.website || ''; }
+    }
+    if (form.elements.volumeBand) { form.elements.volumeBand.value = lead.volumeBand || ''; }
+
+    /* owners, repeaters and totals */
+    var ownerList = form.querySelector('[data-owner-list]');
+    if (ownerList) {
+      addOwner(ownerList);
+      var addButton = form.querySelector('[data-owner-add]');
+      if (addButton) { addButton.addEventListener('click', function () { addOwner(ownerList); updateOwnerTotal(form); }); }
+      ownerList.addEventListener('click', function (event) {
+        var remove = event.target.closest ? event.target.closest('[data-owner-remove]') : null;
+        if (remove && form.querySelectorAll('[data-owner]').length > 1) {
+          remove.closest('[data-owner]').remove();
+          updateOwnerTotal(form);
+        }
+      });
+    }
+    setupRepeaters(form);
+
+    /* trading name toggle */
+    var same = form.querySelector('[data-same-as-legal]');
+    var tradingField = form.querySelector('[data-trading-field]');
+    if (same && tradingField) {
+      var trading = tradingField.querySelector('input');
+      same.addEventListener('change', function () {
+        trading.disabled = same.checked;
+        if (same.checked) { trading.value = ''; clearError(trading); }
+        tradingField.classList.toggle('is-muted', same.checked);
+      });
+    }
+
+    /* draft, progress and the running summary */
+    var savedAt = restoreDraft(form, ref);
+    var status = document.querySelector('[data-save-status]');
+    if (savedAt && status) { status.textContent = 'Draft restored from this browser.'; }
+
+    var refresh = function () {
+      updateOwnerTotal(form);
+      percentTotals(form);
+      applicationProgress(form);
+      buildSummary(form);
+    };
+    form.addEventListener('input', refresh);
+    form.addEventListener('change', refresh);
+    refresh();
+
+    var saveButton = document.querySelector('[data-save-draft]');
+    if (saveButton) {
+      saveButton.addEventListener('click', function () {
+        var saved = saveDraft(form, ref);
+        if (status) {
+          status.textContent = saved + ' answers saved in this browser. Masked fields are never saved.';
+        }
+      });
+    }
+
+    var emailButton = document.querySelector('[data-email-link]');
+    if (emailButton) {
+      emailButton.addEventListener('click', function () {
+        if (status) {
+          status.textContent = 'We would email this link to ' + (lead.email || 'your address') + '. Nothing is sent from the wireframe.';
+        }
+      });
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var firstInvalid = validate(form);
+      var extra = applicationExtras(form);
+      if (!firstInvalid) { firstInvalid = extra; }
+      if (firstInvalid) {
+        var section = firstInvalid.closest('[data-app-section]');
+        if (section) { section.scrollIntoView({ block: 'start' }); }
+        firstInvalid.focus();
+        return;
+      }
+      var payload = buildApplicationPayload(form, ref);
+      if (!CONFIG.FORM_ENDPOINT) {
+        console.log(CONFIG.BRAND_NAME + ' application payload', payload);
+        console.log(JSON.stringify(payload, null, 2));
+      }
+      showSuccess(form);
+    });
+  }
+
+  /* ------------------------------------------------------- the invite page */
+
+  function setupInvite() {
+    var table = document.querySelector('[data-lead-table]');
+    if (!table) { return; }
+    var panel = document.querySelector('[data-invite-panel]');
+    var linkField = document.querySelector('[data-invite-link]');
+    var preview = document.querySelector('[data-invite-preview]');
+    var copy = document.querySelector('[data-invite-copy]');
+    var status = document.querySelector('[data-invite-status]');
+
+    table.addEventListener('click', function (event) {
+      var button = event.target.closest ? event.target.closest('[data-create-link]') : null;
+      if (!button) { return; }
+      var row = button.closest('tr');
+      var name = row.getAttribute('data-lead-name') || '';
+      var firstName = name.split(' ')[0];
+      var ref = newLeadId();
+      var base = window.location.href.split('/invite.html')[0];
+      var link = base + '/application.html?ref=' + ref;
+
+      panel.hidden = false;
+      linkField.value = link;
+      preview.textContent = 'Hi ' + firstName + ', thanks for your interest in ' + CONFIG.BRAND_NAME + '. ' +
+        'We\'ve reviewed your details and we\'d like to move you to the next step. ' +
+        'Here\'s your private link to the full application: ' + link + '. ' +
+        'You can save and come back at any time. It helps to have your business registration, owner ID, ' +
+        'recent processing statements and settlement details to hand. Any questions, just reply to this email. ' +
+        '[Underwriter name], ' + CONFIG.BRAND_NAME;
+      var cell = row.querySelector('[data-lead-status]');
+      if (cell) { cell.textContent = 'Invited'; }
+      if (status) { status.textContent = 'Link created for ' + name + '. Nothing is emailed from the wireframe.'; }
+      panel.scrollIntoView({ block: 'center' });
+    });
+
+    if (copy) {
+      copy.addEventListener('click', function () {
+        linkField.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+        if (status) { status.textContent = ok ? 'Link copied.' : 'Select the link and copy it.'; }
+      });
+    }
   }
 
   /* ------------------------------------------------------------------------
@@ -1419,6 +2214,8 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
         mount.insertAdjacentHTML('afterbegin', trustStripMarkup());
       } else if (kind === 'how-it-works') {
         mount.insertAdjacentHTML('afterbegin', howItWorksMarkup(mount));
+      } else if (kind === 'lead-form') {
+        mount.insertAdjacentHTML('afterbegin', leadFormMarkup(mount));
       } else if (kind === 'kratom-states') {
         mount.insertAdjacentHTML('afterbegin', kratomStatesMarkup());
       }
@@ -1551,6 +2348,8 @@ var BRAND_NAME_IN_MARKUP = 'Pure Labs Pay';
     applyTestimonialSwitch();
     buildNoteTags();
     setupForms();
+    setupApplication();
+    setupInvite();
     /* after the chrome and the blocks, so an injected FAQ or footer is in the
        document before the structured data reads it */
     renderStructuredData();
